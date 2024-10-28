@@ -1,0 +1,455 @@
+.title {
+  font-weight: 900;
+  font-size: 32px;
+  line-height: 32px;
+  margin-bottom: 20px;
+}
+
+.inputContainer {
+  align-items: flex-start !important;
+  gap: 0.5rem;
+  padding: 0.5rem 0;
+  position: relative;
+}
+
+.checkLogo {
+  width: 40px;
+  height: 40px;
+}
+
+.inputUnit {
+  position: absolute;
+  top: 53%;
+  right: 1.5rem;
+  font-weight: 500;
+  color: #5a5a5a;
+}
+
+.inputHeader {
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 31px;
+  color: #5a5a5a;
+}
+
+.input {
+  width: 550px !important;
+  height: 75px !important;
+  padding: 0.5rem;
+  border-radius: 15px !important;
+  border: 2px solid black !important;
+  outline: none;
+}
+
+@media screen and (max-width: 600px) {
+  .input {
+    width: 340px !important;
+    height: 75px !important;
+    padding: 0.5rem;
+    border-radius: 15px !important;
+    border: 2px solid black !important;
+    outline: none;
+  }
+}
+
+.input:focus {
+  border: 2px solid #2d89e6 !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.textarea {
+  width: 550px !important;
+  height: 150px !important;
+  padding: 1rem;
+  border-radius: 15px !important;
+  border: 2px solid black !important;
+  outline: none;
+}
+
+@media screen and (max-width: 600px) {
+  .textarea {
+    width: 340px !important;
+    height: 150px !important;
+    padding: 1rem;
+    border-radius: 15px !important;
+    border: 2px solid black !important;
+    outline: none;
+  }
+
+  .inputDescription {
+    width: 340px !important;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 31px;
+    color: #939393;
+  }
+}
+
+.textarea:focus {
+  border: 2px solid #2d89e6 !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.inputDescription {
+  width: 550px;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 31px;
+  color: #939393;
+}
+
+.selectBox {
+  width: 550px;
+  height: 75px;
+  padding: 1rem;
+  border-radius: 15px;
+  border: 2px solid black !important;
+  cursor: pointer;
+}
+
+.selectionContainer {
+  position: absolute;
+  background: white;
+  z-index: 1;
+  top: 140px;
+  width: 550px;
+  height: 300px;
+  overflow-y: scroll;
+  padding: 1rem;
+  border-radius: 15px;
+  border: 2px solid rgba(0, 0, 0, 0.2) !important;
+  user-select: none;
+}
+
+.selectionBox {
+  width: 550px;
+  padding: 1rem 2rem;
+  font-weight: 500;
+}
+
+.countriesBox {
+  width: 550px;
+  padding: 1rem 2rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.selectedContainer {
+  width: 450px;
+}
+
+@media screen and (max-width: 600px) {
+  .selectBox {
+    width: 340px !important;
+    height: 75px;
+    padding: 1rem;
+    border-radius: 15px;
+    border: 2px solid black !important;
+    cursor: pointer;
+  }
+
+  .selectionContainer {
+    position: absolute;
+    background: white;
+    z-index: 1;
+    top: 140px;
+    width: 340px !important;
+    height: 300px;
+    overflow-y: scroll;
+    padding: 1rem;
+    border-radius: 15px;
+    border: 2px solid rgba(0, 0, 0, 0.2) !important;
+    user-select: none;
+  }
+
+  .selectionBox {
+    width: 340px !important;
+    padding: 1rem 2rem;
+    font-weight: 500;
+  }
+
+  .countriesBox {
+    width: 340px !important;
+    padding: 1rem 2rem;
+    font-weight: 500;
+    cursor: pointer;
+  }
+
+  .selectedContainer {
+    width: 300 !important;
+  }
+}
+
+.chevronIcon {
+  position: absolute;
+  width: 24px !important;
+  height: 24px !important;
+  right: 1rem;
+}
+
+.klaytnLogo {
+  width: 30px;
+  height: 30px;
+}
+
+.donateBtn {
+  width: 100% !important;
+  height: 60px !important;
+  background: #1d1f20 !important;
+  border-radius: 50px !important;
+  color: #fff !important;
+
+  font-weight: 500;
+  font-size: 20px !important;
+}
+
+.donateBtn:disabled,
+.donateBtn[disabled] {
+  color: #666666 !important;
+}
+
+.progressContainer {
+  padding: 2rem;
+}
+
+@media screen and (max-width: 600px) {
+  .progressContainer {
+    padding: 0rem !important;
+  }
+}
+
+.progressBar {
+  position: absolute;
+  height: 100%;
+
+  border-radius: 10px;
+  background: #e38627;
+  transition: 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.progressBarDividers {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  justify-content: space-evenly;
+}
+
+.progressBarDivider {
+  background: white;
+  width: 5px;
+  height: 5px;
+}
+
+@media screen and (max-width: 600px) {
+  .fileUploader {
+    width: 340px !important;
+    height: 100px;
+    border: 3px solid #000000;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center !important;
+    align-items: center !important;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 31px;
+    color: #1c1c1c;
+    cursor: pointer;
+  }
+}
+
+.fileUploader {
+  width: 623px;
+  height: 100px;
+  border: 3px solid #000000;
+  border-radius: 20px;
+  display: flex;
+  justify-content: center !important;
+  align-items: center !important;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 31px;
+  color: #1c1c1c;
+  cursor: pointer;
+}
+
+.fileUploader::-webkit-file-upload-button {
+  display: none;
+}
+
+.fileUploader[type="file"] {
+  color: transparent;
+}
+
+.fileUploaderText {
+  position: absolute;
+  top: 1.8rem;
+  width: 100%;
+  justify-content: space-between;
+  padding: 0 3rem;
+  z-index: 1;
+}
+
+.fileUploadContainer {
+  position: relative;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 31px;
+}
+
+.fileUploaderIcon {
+  width: 24px;
+  height: 24px;
+}
+
+.previewImageContainer {
+  position: relative;
+}
+
+.closeBtn {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  justify-content: center;
+  align-items: center;
+  background: #ededed;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.previewImage {
+  width: 200px;
+  height: 200px;
+  border-radius: 20px;
+}
+
+@media screen and (max-width: 600px) {
+  .reviewSubtitle {
+    width: 340px !important;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 31px;
+    color: #5a5a5a;
+    padding: 2rem 0 1rem 0;
+  }
+
+  .successText {
+    width: 340px !important;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 30px;
+    text-align: center;
+    color: #5a5a5a;
+  }
+
+  .viewCauseBtn {
+    width: 200px !important;
+    padding: 2rem;
+    background: black !important;
+    border-radius: 50px !important;
+    color: white !important;
+    font-weight: 500;
+    font-size: 20px !important;
+  }
+
+  .subtitleContainer {
+    width: 70% !important;
+    padding-top: 1rem;
+    justify-content: space-between;
+  }
+}
+
+.reviewSubtitle {
+  width: 600px;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 31px;
+  color: #5a5a5a;
+  padding: 2rem 0 1rem 0;
+}
+
+.subtitle {
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 41px;
+  text-align: center;
+  color: #1c1c1c;
+}
+
+.editBtn {
+  text-decoration: underline;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 31px;
+  text-align: center;
+  text-decoration-line: underline;
+  color: #1c1c1c;
+}
+
+.subtitleContainer {
+  width: 100%;
+  padding-top: 1rem;
+  justify-content: space-between;
+}
+
+.reviewContainer {
+  align-items: flex-start !important;
+  gap: 1rem;
+  padding: 0.5rem 0;
+  width: 100%;
+  position: relative;
+}
+
+.causeTag {
+  padding: 0.5rem 1.5rem;
+  gap: 20px;
+  font-weight: 500;
+  background: #ffffff;
+  box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.1);
+  border-radius: 50px;
+}
+
+.successContainer {
+  gap: 2rem;
+  padding-bottom: 3rem;
+}
+
+.successImage {
+  width: 700px;
+}
+
+.successText {
+  width: 600px;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 30px;
+  text-align: center;
+  color: #5a5a5a;
+}
+
+.viewCauseBtn {
+  width: 400px !important;
+  padding: 2rem;
+  background: #2d89e6 !important;
+  border-radius: 50px !important;
+  color: white;
+  font-weight: 500;
+  font-size: 20px !important;
+}
+
+.viewTxnBtn {
+  width: 400px !important;
+  padding: 2rem;
+  background: white !important;
+  border: 2px solid #1c1c1c;
+  border-radius: 50px !important;
+  color: black;
+  font-weight: 500;
+  font-size: 20px !important;
+}
+
+.buttonContainer {
+  gap: 0.5rem;
+}

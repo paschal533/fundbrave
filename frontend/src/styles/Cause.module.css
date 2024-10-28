@@ -1,0 +1,272 @@
+.title {
+  font-weight: 500;
+  font-size: 32px;
+  line-height: 32px;
+}
+
+.location {
+  font-weight: 500;
+  font-size: 24px;
+  color: #5a5a5a;
+}
+
+.titleContainer {
+  width: 100%;
+  align-items: flex-start !important;
+  padding-bottom: 1rem;
+}
+
+.donateBtn {
+  width: 100% !important;
+  height: 50px !important;
+  background: #2d89e6 !important;
+  border-radius: 50px !important;
+  color: #fff;
+
+  font-weight: 500;
+  font-size: 20px !important;
+}
+
+.shareBtn {
+  width: 100% !important;
+  height: 50px !important;
+  background: white !important;
+  border: 2px solid #1d1f20 !important;
+  border-radius: 50px !important;
+  color: #3d3d3d;
+
+  font-weight: 500;
+  font-size: 20px !important;
+}
+
+.imageOne {
+  width: 769px;
+  height: 400px;
+  border-radius: 20px;
+  object-fit: cover;
+}
+
+.imageTwo {
+  width: 815px;
+  height: 190px;
+  border-radius: 20px;
+  object-fit: cover;
+}
+
+.imageThree {
+  width: 815px;
+  height: 190px;
+  border-radius: 20px;
+  object-fit: cover;
+}
+
+.donateImage {
+  width: 700px;
+  height: 300px;
+  border-radius: 20px;
+  object-fit: cover;
+}
+
+.descriptionContainer {
+  width: 100%;
+  padding: 2rem 1rem;
+  justify-content: space-between;
+  align-items: flex-start !important;
+}
+
+.tagContainer {
+  width: 100%;
+  padding-bottom: 2rem;
+}
+
+.profileContainer {
+  width: 100%;
+  justify-content: flex-start;
+  padding-left: 1rem;
+}
+
+.causeTag {
+  padding: 0.5rem 1.5rem;
+  background: #ffffff;
+  box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.1);
+  border-radius: 50px;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 31px;
+  text-align: center;
+  color: #000000;
+}
+
+.clockIcon {
+  width: 20px;
+  height: 20px;
+}
+
+.donationIcon {
+  width: 16px;
+  height: 16px;
+}
+
+.profileImage {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+}
+
+.profileTitle {
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 20px;
+  color: #1c1c1c;
+}
+
+.profileSubtitle {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 16px;
+  color: #939393;
+}
+
+.donateContainer {
+  margin-top: 20px;
+  padding: 2rem;
+  background: #ffffff;
+  box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.1);
+  border-radius: 20px;
+  gap: 0.5rem;
+  align-items: flex-start !important;
+}
+
+@media screen and (max-width: 600px) {
+  .donateContainer {
+    margin-top: 20px;
+    max-width: 400px !important;
+    padding: 2rem;
+    background: #ffffff;
+    box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+  }
+
+  .progressBarContainer {
+    position: relative;
+    width: 300px !important;
+    height: 15px;
+
+    background: rgba(217, 217, 217, 0.59);
+    border-radius: 5px;
+  }
+
+  .tabContainer {
+    max-width: 400px !important;
+    padding: 1rem;
+  }
+}
+
+.donationText {
+  font-weight: 500;
+  font-size: 22px;
+  color: #5a5a5a;
+}
+
+.goalText {
+  font-weight: 500;
+  font-size: 18px;
+  color: #939393;
+}
+
+.progressBarContainer {
+  position: relative;
+  width: 350px;
+  height: 15px;
+
+  background: rgba(217, 217, 217, 0.59);
+  border-radius: 5px;
+}
+
+.progressBar {
+  position: absolute;
+  width: 75%;
+  height: 100%;
+
+  border-radius: 10px;
+  background: #e38627;
+}
+
+.donationTime {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 31px;
+  color: #939393;
+}
+
+.tabContainer {
+  width: 800px;
+  padding: 1rem;
+}
+
+.updateContainer {
+  padding: 1rem 0;
+}
+
+.updateDate {
+  background: #1c1c1c;
+  border-radius: 20px;
+  justify-content: center;
+  align-items: center;
+  padding: 0.5rem 1rem;
+}
+
+.updateDateText {
+  color: white;
+  font-weight: 500;
+  width: 30px;
+  text-align: center;
+}
+
+.updateTextContainer {
+  align-items: flex-start !important;
+  gap: 0.5rem;
+  padding-left: 1rem;
+}
+
+.updateTitle {
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 16px;
+  color: #1c1c1c;
+}
+
+.updateSubtitle {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 16px;
+  color: #5a5a5a;
+}
+
+.donationHeader {
+  width: 350px;
+  padding: 2rem;
+  background: #1c1c1c;
+  box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.1);
+  border-radius: 20px;
+}
+
+.donationHeaderTitle {
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 30px;
+  color: #ffffff;
+}
+
+.donationHeaderSubtitle {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 16px;
+  color: #939393;
+}
+
+.donorImage {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+}
