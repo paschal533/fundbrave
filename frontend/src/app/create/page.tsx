@@ -325,7 +325,7 @@ function StepOne({
           Next
         </Button>
       ) : (
-        <Login width="lg:!w-[550px] !w-[350px]!py-4 !rounded-2xl"/>
+        <Login width="lg:!w-[550px] !w-[350px] !py-4 !rounded-2xl"/>
       )}
     </VStack>
   );
