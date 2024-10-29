@@ -3,12 +3,13 @@ import NotLogin from "@/components/common/NotLogin";
 import Donations from "@/components/donations";
 import InfoBar from "@/components/infobar";
 import { useWallet } from "@/components/login/WalletContext";
-import React from "react";
+import { AuthContext } from "@/context/AuthContext";
+import React, { useContext } from "react";
 
 type Props = {};
 
 const Page = (props: Props) => {
-  const { userAddress: currentAccount } = useWallet();
+  const { currentAccount } = useContext(AuthContext);
 
   if(!currentAccount){
     return(

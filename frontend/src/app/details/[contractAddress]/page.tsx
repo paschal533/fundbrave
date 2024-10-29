@@ -42,6 +42,7 @@ import styled from "styled-components";
 import { BsShare } from "react-icons/bs";
 import { data } from "@/data/info";
 import NavBar from "@/components/common/NavBar";
+import { AuthContext } from "@/context/AuthContext";
 
 const StyledButton = styled.button`
   cursor: pointer;
@@ -108,7 +109,7 @@ function Cause() {
 
   const [sending, setSending] = useState(false);
   const [successModal, setSuccessModal] = useState(false);
-  const { userAddress: currentAccount } = useWallet();
+  const { currentAccount } = useContext(AuthContext);
   const [isExchangedLoaded, setIsExchangedLoaded] = useState(false);
   const [exchangeRate, setExchangeRate] = useState<number>(0);
   const [donationValue, setDonationValue] = useState<string>("");

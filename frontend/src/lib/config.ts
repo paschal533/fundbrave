@@ -1,11 +1,10 @@
 import { http, createConfig } from "wagmi";
-import { mainnet, sepolia } from "wagmi/chains";
+import { mainnet, sepolia, filecoinCalibration } from "wagmi/chains";
 
 export const config = createConfig({
-  chains: [mainnet, sepolia],
+  chains: [filecoinCalibration],
   transports: {
     // add desired networks here
-    [mainnet.id]: http(),
-    [sepolia.id]: http(),
+    [filecoinCalibration.id]: http(),
   },
 });

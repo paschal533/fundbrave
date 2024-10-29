@@ -5,6 +5,7 @@ import Providers from "@/components/Providers/WalletProvider";
 import { FundraiserProvider } from "@/context/FundraiserContext";
 import { ToastContainer } from "@/services/toast";
 import { ProfileProvider } from "@/context/ProfileContext";
+import { AuthProvider } from "@/context/AuthContext";
 import { ChakraProvider } from "@chakra-ui/react";
 
 export const metadata: Metadata = {
@@ -27,11 +28,13 @@ export default function RootLayout({
     <html lang="en">
       <Providers>
         <ChakraProvider>
+          <AuthProvider>
           <FundraiserProvider>
             <ProfileProvider>
               <body className={inter.className}>{children}</body>
             </ProfileProvider>
           </FundraiserProvider>
+          </AuthProvider>
         </ChakraProvider>
       </Providers>
     </html>

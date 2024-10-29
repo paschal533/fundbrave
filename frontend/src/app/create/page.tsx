@@ -35,6 +35,7 @@ import { ScaleFade } from "@chakra-ui/react";
 import { create as ipfsHttpClient } from "ipfs-http-client";
 import { FundraiserContext } from "@/context/FundraiserContext";
 import Login from "@/components/login/Login";
+import { AuthContext } from "@/context/AuthContext";
 
 const projectId = process.env.NEXT_PUBLIC_INFURA_IPFS_PROJECT_ID;
 const projectSecret = process.env.NEXT_PUBLIC_INFURA_IPFS_PROJECT_SECRET;
@@ -60,7 +61,7 @@ function Create() {
   const [amount, setAmount] = useState<number>(0);
   const [isTxnSuccessful, setTxnSuccessful] = useState<boolean>(false);
   const [fileUrl, setFileUrl] = useState<Array<string>>([]);
-  const { userAddress: currentAccount } = useWallet();
+  const { currentAccount } = useContext(AuthContext);
   const { createAFundraiser, isLoadingFundraiser } =
     useContext(FundraiserContext);
 
@@ -324,9 +325,7 @@ function StepOne({
           Next
         </Button>
       ) : (
-        <Button className={styles.donateBtn}>
-          {currentAccount ? "" : "Connect Wallet"}
-        </Button>
+        <Login width="lg:!w-[550px] !w-[350px] !py-4 !rounded-2xl"/>
       )}
     </VStack>
   );

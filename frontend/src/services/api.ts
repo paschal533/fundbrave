@@ -16,8 +16,7 @@ import {
 
 export const fetchContract = (
   signerOrProvider: ethers.Signer | ethers.providers.Provider,
-) =>
-  FundraiserFactory__factory.connect(
+) => FundraiserFactory__factory.connect(
     FundraiserFactoryAddress,
     signerOrProvider,
   );

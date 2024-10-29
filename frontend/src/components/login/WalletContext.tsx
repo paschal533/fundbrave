@@ -1,5 +1,5 @@
 import React, { createContext, useContext } from "react";
-import { WalletClient } from "viem";
+import { WalletClient, PublicClient, Account } from "viem";
 
 type WalletContextType = {
   connected: boolean | undefined;
@@ -7,6 +7,10 @@ type WalletContextType = {
   walletClient: WalletClient | undefined;
   setWalletClient: React.Dispatch<
     React.SetStateAction<WalletClient | undefined>
+  >;
+  publicClient: PublicClient | undefined;
+  setPublicClient: React.Dispatch<
+    React.SetStateAction<PublicClient | undefined>
   >;
   userAddress: string;
   setUserAddress: React.Dispatch<React.SetStateAction<string>>;

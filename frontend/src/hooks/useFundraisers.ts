@@ -5,7 +5,11 @@ import { Address, FundraiserItem } from "@/types";
 import * as API from "@/services/api";
 import { handleNewFundraiser, handleWithdraw } from "@/services/notifications";
 import { MyDonations } from "@/types";
-import { useWalletClient } from "wagmi";
+import { useWalletClient, useSwitchChain } from "wagmi";
+import { useEthersSigner, clientToSigner } from "./etherSigner";
+import { initSilk } from "@silk-wallet/silk-wallet-sdk";
+import { filecoinCalibration } from "viem/chains";
+import FundraiserFactory from '@/contracts/FundraiserFactory.json';
 
 
 export const useFundraisers = () => {
@@ -18,19 +22,38 @@ export const useFundraisers = () => {
   const [fundraisersDetails, setFundraisersDetails] = useState<
     FundraiserItem[]
   >([]);
-
   const [loadDonations, setLoadDonations] = useState(true);
-  const { userAddress: currentAccount, walletClient, connected } = useWallet();
+  const { userAddress: currentAccount, connected, walletClient, publicClient } = useWallet();
+  const { chains, error, switchChain } = useSwitchChain();
 
+    useEffect(() => {
+       const init = async () => {
+         if(connected && currentAccount && walletClient && publicClient){
+           try {
+            const [account] = await walletClient.getAddresses();
+            const { request } = await publicClient?.simulateContract({
+              account,
+              address: '0x92e5226E6488Cab69402b047Edd6077ebd19b66E',
+              abi: FundraiserFactory.abi,
+              functionName: 'currentId',
+            })
+
+            console.log(walletClient)
+            console.log(chains[0].id)
+            switchChain && switchChain({ chainId: chains[0]?.id });
+            //@ts-ignore
+            const res = await walletClient?.writeContract(request)
+            console.log(res)
+           }catch(error){
+            console.log(error)
+           }
+         }
+       }
+       init()
+    }, [currentAccount, connected, publicClient, walletClient])
 
   useEffect(() => {
     let isMounted = true;
-
-    setCurrentSigner(walletClient);
-
-    if (connected) {
-      setCurrentSigner(walletClient);
-    }
 
     const fetchFundraisers = async () => {
       setIsLoadingFundraiser(true);
@@ -46,16 +69,27 @@ export const useFundraisers = () => {
     return () => {
       isMounted = false;
     };
-  }, [currentAccount, connected, walletClient]);
+  }, [currentAccount, connected]);
 
   useEffect(() => {
     const fetchFundraisers = async () => {
-      const items = await API.fetchFundraisers();
-      setFundraisersDetails(items);
+       try {
+        const items = await API.fetchFundraisers();
+        setFundraisersDetails(items);
+
+         if(currentSigner){
+          console.log(currentSigner)
+          const contract = API.fetchContract(currentSigner);
+          const res = await contract.currentId()
+          console.log(res)
+         }
+       }catch(error){
+        console.log(error)
+       }
     };
 
     fetchFundraisers();
-  }, []);
+  }, [currentSigner]);
 
   // NOTE: Maybe subscribe to new blocks to update Fundraisers list in real time + New Fundraisers notifications
   //   useEffect(() => {
