@@ -265,3 +265,39 @@ export const withdraw = async (
 
   handleWithdraw();
 };
+
+export const createProposal = async (
+  address: string,
+  currentAccount: string,
+  title: string,
+  description: string,
+  signer: any,
+) => {
+  if (!currentAccount) {
+    return;
+  }
+
+  const instance = fetchFundraiserContract(address, signer);
+  await instance.createProposal(title, description, { from: currentAccount });
+
+  handleWithdraw();
+};
+
+export const addMediaArchive = async (
+  address: string,
+  currentAccount: string,
+  title: string,
+  description: string,
+  imgUrl: string,
+  signer: any,
+) => {
+  if (!currentAccount) {
+    return;
+  }
+  
+  const instance = fetchFundraiserContract(address, signer);
+  await instance.createMediaArchive(title, description, imgUrl, { from: currentAccount });
+
+  handleWithdraw();
+};
+

@@ -12,6 +12,13 @@
   position: relative;
 }
 
+.inputContainerProposal {
+  text-align: left !important;
+  gap: 0.5rem;
+  padding: 0.5rem 0;
+  position: relative;
+}
+
 .checkLogo {
   width: 40px;
   height: 40px;
@@ -35,6 +42,15 @@
 .input {
   width: 550px !important;
   height: 75px !important;
+  padding: 0.5rem;
+  border-radius: 15px !important;
+  border: 2px solid black !important;
+  outline: none;
+}
+
+.inputProposal {
+  width: 380px !important;
+  height: 60px !important;
   padding: 0.5rem;
   border-radius: 15px !important;
   border: 2px solid black !important;
@@ -67,9 +83,30 @@
   outline: none;
 }
 
+.textareaProposal {
+  width: 380px !important;
+  height: 130px !important;
+  padding: 1rem;
+  border-radius: 15px !important;
+  border: 2px solid black !important;
+  outline: none;
+}
+
+.textareaProposal:focus {
+  border: 2px solid #2d89e6 !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.inputProposal:focus {
+  border: 2px solid #2d89e6 !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
 @media screen and (max-width: 600px) {
   .textarea {
-    width: 340px !important;
+    width: 380px !important;
     height: 150px !important;
     padding: 1rem;
     border-radius: 15px !important;
@@ -82,6 +119,14 @@
     font-weight: 500;
     font-size: 16px;
     line-height: 31px;
+    color: #939393;
+  }
+
+  .inputDescriptionProposal {
+    width: 100% !important;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 100%;
     color: #939393;
   }
 }

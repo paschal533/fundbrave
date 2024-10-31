@@ -5,12 +5,8 @@ import { Address, FundraiserItem } from "@/types";
 import * as API from "@/services/api";
 import { handleNewFundraiser, handleWithdraw } from "@/services/notifications";
 import { MyDonations } from "@/types";
-import { useWalletClient, useSwitchChain } from "wagmi";
-import { useEthersSigner, clientToSigner } from "./etherSigner";
-import { initSilk } from "@silk-wallet/silk-wallet-sdk";
-import { filecoinCalibration } from "viem/chains";
-import FundraiserFactory from '@/contracts/FundraiserFactory.json';
-
+import { useEthersSigner } from "./etherSigner";
+import { AuthContext } from "@/context/AuthContext";
 
 export const useFundraisers = () => {
   const [isLoadingFundraiser, setIsLoadingFundraiser] = useState(true);
@@ -23,37 +19,19 @@ export const useFundraisers = () => {
     FundraiserItem[]
   >([]);
   const [loadDonations, setLoadDonations] = useState(true);
-  const { userAddress: currentAccount, connected, walletClient, publicClient } = useWallet();
-  const { chains, error, switchChain } = useSwitchChain();
-
-    useEffect(() => {
-       const init = async () => {
-         if(connected && currentAccount && walletClient && publicClient){
-           try {
-            const [account] = await walletClient.getAddresses();
-            const { request } = await publicClient?.simulateContract({
-              account,
-              address: '0x92e5226E6488Cab69402b047Edd6077ebd19b66E',
-              abi: FundraiserFactory.abi,
-              functionName: 'currentId',
-            })
-
-            console.log(walletClient)
-            console.log(chains[0].id)
-            switchChain && switchChain({ chainId: chains[0]?.id });
-            //@ts-ignore
-            const res = await walletClient?.writeContract(request)
-            console.log(res)
-           }catch(error){
-            console.log(error)
-           }
-         }
-       }
-       init()
-    }, [currentAccount, connected, publicClient, walletClient])
+  const { currentAccount } = useContext(AuthContext);
+  const [proposals, setProposals] = useState<any[]>([])
+  const [mediaArchive, setMediaArchive] = useState<any[]>([])
+  const signer = useEthersSigner()
 
   useEffect(() => {
     let isMounted = true;
+
+    setCurrentSigner(signer);
+
+    if (signer) {
+      setCurrentSigner(signer);
+    }
 
     const fetchFundraisers = async () => {
       setIsLoadingFundraiser(true);
@@ -69,7 +47,7 @@ export const useFundraisers = () => {
     return () => {
       isMounted = false;
     };
-  }, [currentAccount, connected]);
+  }, [currentAccount, signer]);
 
   useEffect(() => {
     const fetchFundraisers = async () => {
@@ -77,12 +55,6 @@ export const useFundraisers = () => {
         const items = await API.fetchFundraisers();
         setFundraisersDetails(items);
 
-         if(currentSigner){
-          console.log(currentSigner)
-          const contract = API.fetchContract(currentSigner);
-          const res = await contract.currentId()
-          console.log(res)
-         }
        }catch(error){
         console.log(error)
        }
@@ -110,6 +82,28 @@ export const useFundraisers = () => {
       //const signer = await getProvider();
       const instance = API.fetchFundraiserContract(address, currentSigner);
       const userDonations = await instance.connect(currentSigner).myDonations();
+
+      const proposals = await instance.getProposals();
+      const formattedProposals = proposals.map((proposal) => ({
+          id: proposal[0].toString(),
+          title: proposal[1],
+          description: proposal[2],
+          date: proposal[3].toString(),
+          upvotes: proposal[4].toString(),
+          downvotes: proposal[5].toString()
+      }));
+      setProposals(formattedProposals)
+
+      const mediaArchives = await instance.getMediaArchive();
+        const formattedMediaArchives = mediaArchives.map((mediaArchive) => ({
+          id: mediaArchive[0].toString(),
+          title: mediaArchive[1],
+          description: mediaArchive[2],
+          url: mediaArchive[3],
+          date: mediaArchive[4].toString(),
+        }));
+
+      setMediaArchive(formattedMediaArchives)
 
       const isOwner = await instance.connect(currentSigner).owner();
 
@@ -188,5 +182,7 @@ export const useFundraisers = () => {
     owner,
     currentSigner,
     fundraisersDetails,
+    proposals,
+    mediaArchive
   };
 };

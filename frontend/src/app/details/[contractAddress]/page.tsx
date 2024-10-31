@@ -2,7 +2,7 @@
 "use client";
 import { VStack, Text, HStack, Image, Box, Button } from "@chakra-ui/react";
 import { useState, useEffect, useContext, useRef, useCallback } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import {
   Tabs,
   TabList,
@@ -43,6 +43,8 @@ import { BsShare } from "react-icons/bs";
 import { data } from "@/data/info";
 import NavBar from "@/components/common/NavBar";
 import { AuthContext } from "@/context/AuthContext";
+import MainButton from "@/components/common/MainButton";
+import { ScrollArea } from "@radix-ui/react-scroll-area"
 
 const StyledButton = styled.button`
   cursor: pointer;
@@ -50,7 +52,7 @@ const StyledButton = styled.button`
   display: inline-block;
   padding: 14px 24px;
   color: #ffffff;
-  background: #1a88f8;
+  background: #1D1F20;
   width: 350px;
   font-size: 16px;
   font-weight: 500;
@@ -116,6 +118,8 @@ function Cause() {
   const [fundraiser, setFundraiser] = useState(null);
   const [fetching, setFetching] = useState(true);
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { fundraisers : fundraiserItems, isLoadingFundraiser, proposals, mediaArchive } = useContext(FundraiserContext);
+  const pathname = usePathname()
 
   useEffect(() => {
     let isMounted = true;
@@ -159,17 +163,24 @@ function Cause() {
   }, [paymentModal, successModal]);
 
   // TODO: Should we use transaction hash instead of address?
-  const fundraiserAddress =
-    "0xe3e4ef7008b9ebd94626389c287e2da6441fea405471eb268d41cb51b1efc199"; //router.query.address as unknown as Fundraiser;
+  const fundraiserAddress = pathname.slice(9) as unknown as Fundraiser;
 
   useEffect(() => {
     const fetchDetails = async () => {
       try {
-        setFetching(true);
-        const items = data; //await API.fetchFundraisers();
-        const res = items; //.filter((a : any) => a.address === fundraiserAddress);
-        //@ts-ignore
-        setFundraiser(res[0]);
+         if(fundraiserItems.length > 0){
+          setFetching(true);
+          const items = fundraiserItems;
+          const res = items.filter((a : any) => a.address === fundraiserAddress);
+          //@ts-ignore
+          setFundraiser(res[0]);
+         }else {
+          setFetching(true);
+          const items = await API.fetchFundraisers();
+          const res = items.filter((a : any) => a.address === fundraiserAddress);
+          //@ts-ignore
+          setFundraiser(res[0]);
+         }
       } catch (error) {
         console.log(error);
       } finally {
@@ -178,7 +189,7 @@ function Cause() {
     };
 
     fetchDetails();
-  }, [fundraiserAddress]);
+  }, [fundraiserAddress, fundraiserItems]);
 
   const updates = [
     {
@@ -231,9 +242,10 @@ function Cause() {
     };
 
     GetDonationList(fundraiserAddress as string);
-  }, [fundraiserAddress, getFundRaiserDetails, setLoadDonations]);
 
-  const MaticAmount = parseFloat(donationValue) / exchangeRate;
+  }, []);
+
+  const FilAmount = parseFloat(donationValue) / exchangeRate;
 
   const submitFunds = useCallback(async () => {
     try {
@@ -244,13 +256,13 @@ function Cause() {
       setPaymentModal(false);
       setSending(true);
       //const signer = await API.getProvider();
-      /*const instance = API.fetchFundraiserContract(
+      const instance = API.fetchFundraiserContract(
         fundraiser.address,
         currentSigner
       );
       await instance.connect(currentSigner).donate({
-        value: ethers.utils.parseUnits(MaticAmount.toString(), 18),
-      });*/
+        value: ethers.utils.parseUnits(FilAmount.toString(), 18),
+      });
 
       handleDonation(donationValue);
       setSuccessModal(true);
@@ -266,6 +278,8 @@ function Cause() {
     setSending,
     setSuccessModal,
     currentSigner,
+    FilAmount,
+    fundraiser
   ]);
 
   if (fetching) {
@@ -284,11 +298,11 @@ function Cause() {
     <>
       <NavBar name="browse" />
       {fundraiser ? (
-        <div className="pl-6 pb-6 pr-6 lg:pt-20 pt-10 flex flex-wrap justify-center items-center w-full">
+        <div className="pl-6 pb-6 pr-6 lg:pt-24 pt-10 flex flex-wrap justify-center items-center w-full">
           <div className="max-w-7xl flex-col justify-center items-center w-full">
             <VStack className={styles.titleContainer}>
               <Text className={styles.title}>{fundraiser.name}</Text>
-              <Text className={styles.location}>{fundraiser.region}</Text>
+              <Text className={styles.location}>{fundraiser.country}</Text>
             </VStack>
             <HStack gap={2}>
               <Image
@@ -312,7 +326,7 @@ function Cause() {
           </div>
           <div className="flex w-full flex-wrap justify-center items-center">
             <VStack>
-              <HStack className="w-full flex sm:justify-center flex-wrap mt-4 mb-4 space-y-2">
+              <HStack className="w-full flex lg:justify-start justify-center flex-wrap mt-6 mb-6 space-y-2">
                 {fundraiser.categories.slice(0, 3).map((tag, idx) => (
                   <Text key={idx} className={styles.causeTag}>
                     {tag}
@@ -346,10 +360,10 @@ function Cause() {
                 size="lg"
                 className={styles.tabContainer}
               >
-                <TabList>
+                <TabList className="font-semibold">
                   <Tab w="100%">About</Tab>
                   <Tab w="100%">Updates</Tab>
-                  <Tab w="100%">Donations</Tab>
+                  <Tab w="100%">Proposals</Tab>
                 </TabList>
                 <TabPanels>
                   <TabPanel>
@@ -361,11 +375,11 @@ function Cause() {
                   </TabPanel>
                   <TabPanel>
                     <VStack>
-                      {updates.map((update, idx) => (
+                      {mediaArchive.length > 0 ? mediaArchive.map((update, idx) => (
                         <HStack key={idx} className={styles.updateContainer}>
                           <VStack className={styles.updateDate}>
                             <Text className={styles.updateDateText}>
-                              {getFormattedDate(update.timestamp)}
+                              {getFormattedDate(Number(update.date))}
                             </Text>
                           </VStack>
                           <VStack className={styles.updateTextContainer}>
@@ -377,13 +391,17 @@ function Cause() {
                             </Text>
                           </VStack>
                         </HStack>
-                      ))}
+                      )): (
+                        <h1 className="text-center text-xl mt-4 font-bold">
+                         No media record found
+                      </h1>
+                      )}
                     </VStack>
                   </TabPanel>
                   <TabPanel>
                     {fundraiser.donors ? (
                       <VStack>
-                        <div className="flex sm:flex-col w-full justify-center items-center">
+                        <div className="flex lg:flex-row flex-col lg:space-x-2 lg:space-y-0 space-x-0 space-y-2 w-full justify-center items-center">
                           <VStack
                             className={`${styles.donationHeader} sm:mb-2 mb-0 mr-2 sm:mr-0`}
                           >
@@ -406,6 +424,29 @@ function Cause() {
                             </Text>
                           </VStack>
                         </div>
+
+                        {proposals.length > 0 ? proposals.map((proposal, idx) => (
+                        <HStack key={idx} className={styles.updateContainer}>
+                          <VStack className={styles.updateDate}>
+                            <Text className={styles.updateDateText}>
+                              {getFormattedDate(Number(proposal.date))}
+                            </Text>
+                          </VStack>
+                          <VStack className={styles.updateTextContainer}>
+                            <Text className={styles.updateTitle}>
+                              {proposal.title}
+                            </Text>
+                            <Text className={styles.updateSubtitle}>
+                              {proposal.description}
+                            </Text>
+                          </VStack>
+                        </HStack>
+                      )) : (
+                        <h1 className="text-center text-xl mt-4 font-bold">
+                         No Proposal record found
+                      </h1>
+                      )
+                      }
                       </VStack>
                     ) : (
                       <h1 className="text-center text-xl mt-4 font-bold">
@@ -469,7 +510,7 @@ function Cause() {
             name={fundraiser.name}
             image={fundraiser.images[0]}
             onClose={onClose}
-            url={`https://crowdflow1.netlify.app/fundraiser-details?address=${fundraiserAddress}`}
+            url={`https://crowdflow1.netlify.app/details/${fundraiserAddress}`}
           />
           {paymentModal && (
             <div
@@ -478,11 +519,11 @@ function Cause() {
             >
               <div
                 ref={modalRef}
-                className="flex flex-col w-2/5 bg-white rounded-lg md:w-11/12 minlg:w-2/4 dark:bg-nft-dark"
+                className="flex flex-col bg-white rounded-lg w-11/12 lg:w-2/5 dark:bg-nft-dark"
               >
-                <div className="flex justify-end mt-4 mr-4 minlg:mt-6 minlg:mr-6">
+                <div className="flex justify-end mt-4 mr-4 lg:mt-6 lg:mr-6">
                   <div
-                    className="relative w-3 h-3 cursor-pointer minlg:w-6 minlg:h-6"
+                    className="relative w-3 h-3 cursor-pointer lg:w-4 lg:h-4"
                     onClick={() => setPaymentModal(false)}
                   >
                     <Image
@@ -501,7 +542,7 @@ function Cause() {
                 </div>
                 <div className="p-10 border-t border-b sm:px-4 dark:border-nft-black-3 border-nft-gray-1">
                   <div className="flex flex-col justify-center text-center">
-                    <p className="font-normal text-center font-poppins dark:text-white text-nft-black-1 text-bold minlg:text-xl">
+                    <p className="text-center font-poppins dark:text-white text-nft-black-1 font-bold minlg:text-xl">
                       {fundraiser?.name}
                     </p>
 
@@ -538,12 +579,12 @@ function Cause() {
 
                     <div className="mt-10 flexBetween">
                       <p className="text-base font-semibold font-poppins dark:text-white text-nft-black-1 minlg:text-xl">
-                        Total SUI:
+                        Total FIL:
                       </p>
                       {isExchangedLoaded ? (
                         <p className="text-base font-normal font-poppins dark:text-white text-nft-black-1 minlg:text-xl">
-                          {isNaN(MaticAmount) ? 0 : MaticAmount.toFixed(4)}
-                          <span className="pl-1 font-semibold">SUI</span>
+                          {isNaN(FilAmount) ? 0 : FilAmount.toFixed(4)}
+                          <span className="pl-1 font-semibold">FIL</span>
                         </p>
                       ) : (
                         <Loader />
@@ -552,20 +593,22 @@ function Cause() {
                   </div>
                 </div>
                 <div className="p-4 flexCenter">
-                  <div className="flex flex-row sm:flex-col">
-                    <BTN
-                      btnName="Donate"
-                      btnType="primary"
-                      classStyles="mr-5 sm:mr-0 sm:mb-5 rounded-xl"
-                      handleClick={() => {
+                  <div className="flex lg:space-x-2 lg:space-y-0 space-x-0 space-y-2 lg:flex-row flex-col">
+                    <MainButton
+                      text="Donate"
+                      size="normal"
+                      width="100%"
+                      className="border-none rounded-[12px]"
+                      disabled={donationValue == 0}
+                      action={() => {
                         submitFunds();
                       }}
                     />
-                    <BTN
-                      btnName="Cancel"
-                      btnType="outline"
-                      classStyles="rounded-lg"
-                      handleClick={() => setPaymentModal(false)}
+                    <MainButton
+                      text="Cancel"
+                      size="normal"
+                      action={() => setPaymentModal(false)}
+                      className="rounded-[12px] w-full border-[1px] border-[#EDEEF0] bg-white hover:bg-white text-[#31373D]"
                     />
                   </div>
                 </div>
@@ -585,7 +628,7 @@ function Cause() {
                           thickness="4px"
                           speed="0.65s"
                           emptyColor="gray.200"
-                          color="blue.500"
+                          color="black"
                           size="xl"
                         />
                       </div>
@@ -623,11 +666,13 @@ function Cause() {
                 }
                 footer={
                   <div className="flex-col flexCenter">
-                    <BTN
-                      btnName="Print Receipt"
-                      btnType="primary"
-                      classStyles="sm:mr-0 sm:mb-5 rounded-xl"
-                      handleClick={() => setSuccessModal(false)}
+                    <MainButton
+                      text="Close"
+                      size="normal"
+                      width="100%"
+                      className="border-none rounded-[12px]"
+                      disabled={donationValue == 0}
+                      action={() => setSuccessModal(false)}
                     />
                   </div>
                 }

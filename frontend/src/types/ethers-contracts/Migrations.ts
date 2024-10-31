@@ -20,7 +20,6 @@ import type {
   TypedEvent,
   TypedListener,
   OnEvent,
-  PromiseOrValue,
 } from "./common";
 
 export interface MigrationsInterface extends utils.Interface {
@@ -34,27 +33,27 @@ export interface MigrationsInterface extends utils.Interface {
     nameOrSignatureOrTopic:
       | "last_completed_migration"
       | "owner"
-      | "setCompleted",
+      | "setCompleted"
   ): FunctionFragment;
 
   encodeFunctionData(
     functionFragment: "last_completed_migration",
-    values?: undefined,
+    values?: undefined
   ): string;
   encodeFunctionData(functionFragment: "owner", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "setCompleted",
-    values: [PromiseOrValue<BigNumberish>],
+    values: [BigNumberish]
   ): string;
 
   decodeFunctionResult(
     functionFragment: "last_completed_migration",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "owner", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "setCompleted",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
 
   events: {};
@@ -70,15 +69,15 @@ export interface Migrations extends BaseContract {
   queryFilter<TEvent extends TypedEvent>(
     event: TypedEventFilter<TEvent>,
     fromBlockOrBlockhash?: string | number | undefined,
-    toBlock?: string | number | undefined,
+    toBlock?: string | number | undefined
   ): Promise<Array<TEvent>>;
 
   listeners<TEvent extends TypedEvent>(
-    eventFilter?: TypedEventFilter<TEvent>,
+    eventFilter?: TypedEventFilter<TEvent>
   ): Array<TypedListener<TEvent>>;
   listeners(eventName?: string): Array<Listener>;
   removeAllListeners<TEvent extends TypedEvent>(
-    eventFilter: TypedEventFilter<TEvent>,
+    eventFilter: TypedEventFilter<TEvent>
   ): this;
   removeAllListeners(eventName?: string): this;
   off: OnEvent<this>;
@@ -92,8 +91,8 @@ export interface Migrations extends BaseContract {
     owner(overrides?: CallOverrides): Promise<[string]>;
 
     setCompleted(
-      completed: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> },
+      completed: BigNumberish,
+      overrides?: Overrides & { from?: string }
     ): Promise<ContractTransaction>;
   };
 
@@ -102,8 +101,8 @@ export interface Migrations extends BaseContract {
   owner(overrides?: CallOverrides): Promise<string>;
 
   setCompleted(
-    completed: PromiseOrValue<BigNumberish>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> },
+    completed: BigNumberish,
+    overrides?: Overrides & { from?: string }
   ): Promise<ContractTransaction>;
 
   callStatic: {
@@ -112,8 +111,8 @@ export interface Migrations extends BaseContract {
     owner(overrides?: CallOverrides): Promise<string>;
 
     setCompleted(
-      completed: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides,
+      completed: BigNumberish,
+      overrides?: CallOverrides
     ): Promise<void>;
   };
 
@@ -125,21 +124,21 @@ export interface Migrations extends BaseContract {
     owner(overrides?: CallOverrides): Promise<BigNumber>;
 
     setCompleted(
-      completed: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> },
+      completed: BigNumberish,
+      overrides?: Overrides & { from?: string }
     ): Promise<BigNumber>;
   };
 
   populateTransaction: {
     last_completed_migration(
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     owner(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     setCompleted(
-      completed: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> },
+      completed: BigNumberish,
+      overrides?: Overrides & { from?: string }
     ): Promise<PopulatedTransaction>;
   };
 }

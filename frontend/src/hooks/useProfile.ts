@@ -5,6 +5,7 @@ import { FundraiserContext } from "@/context/FundraiserContext";
 import { FundraiserDetailsItem } from "@/types";
 import * as API from "@/services/api";
 import { filter } from "@chakra-ui/react";
+import { AuthContext } from "@/context/AuthContext";
 
 const useProfile = () => {
   const [isLoadingUserDonations, setIsLoadingUserDonations] = useState(true);
@@ -13,42 +14,46 @@ const useProfile = () => {
   const [totalDonations, setTotalDonations] = useState("");
   const [UserCampaigns, setUserCampaigns] = useState([]);
   const [donation, setDonations] = useState<any>([]);
-  const { userAddress: currentAccount } = useWallet();
+  const { currentAccount } = useContext(AuthContext)
   const { currentSigner } = useContext(FundraiserContext);
 
   useEffect(() => {
     let isMounted = true;
     const fetchAllFundraiserDonations = async () => {
-      if (currentAccount) {
-        setIsLoadingUserDonations(true);
-        const items = await API.fetchFundraisersDetails(10, 0, currentAccount);
-
-        setDonations(items);
-
-        if (!isMounted) return;
-        // @ts-ignore TODO: fix typescript error
-        const datas = await Promise.all(
-          items.map(async ({ name, userDonations }) => {
-            const res =
-              userDonations?.length > 0
-                ? await Promise.all(
-                    userDonations.map(async ({ donationAmount, date }: any) => {
-                      return {
-                        name,
-                        donationAmount,
-                        date,
-                      };
-                    }),
-                  )
-                : null;
-            return res;
-          }),
-        );
-
-        const result = datas.flat(1);
-        const filterResult = result.filter((a) => a !== null);
-        setmyDonations(filterResult.filter((a) => a.donationAmount !== "0.00"));
-        setIsLoadingUserDonations(false);
+      try {
+        if (currentAccount) {
+          setIsLoadingUserDonations(true);
+          const items = await API.fetchFundraisersDetails(10, 0, currentAccount);
+  
+          setDonations(items);
+  
+          if (!isMounted) return;
+          // @ts-ignore TODO: fix typescript error
+          const datas = await Promise.all(
+            items.map(async ({ name, userDonations }) => {
+              const res =
+                userDonations?.length > 0
+                  ? await Promise.all(
+                      userDonations.map(async ({ donationAmount, date }: any) => {
+                        return {
+                          name,
+                          donationAmount,
+                          date,
+                        };
+                      }),
+                    )
+                  : null;
+              return res;
+            }),
+          );
+  
+          const result = datas.flat(1);
+          const filterResult = result.filter((a) => a !== null);
+          setmyDonations(filterResult.filter((a) => a.donationAmount !== "0.00"));
+          setIsLoadingUserDonations(false);
+        }
+      }catch(error){
+        console.log(error)
       }
     };
 
@@ -137,6 +142,22 @@ const useProfile = () => {
     }
   };
 
+  const createProposal = async (address: string, title: string, description : string) => {
+    try {
+      await API.createProposal(address, currentAccount, title, description, currentSigner);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const addMediaArchive = async (address: string, title: string, description : string, imgUrl : string) => {
+    try {
+      await API.addMediaArchive(address, currentAccount, title, description, imgUrl, currentSigner);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return {
     myDonations,
     isLoadingUserDonations,
@@ -147,6 +168,8 @@ const useProfile = () => {
     setNewBeneficiary,
     withdraw,
     currentAccount,
+    createProposal,
+    addMediaArchive
   };
 };
 

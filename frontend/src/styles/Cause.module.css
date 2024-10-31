@@ -1,11 +1,11 @@
 .title {
-  font-weight: 500;
+  font-weight: 700;
   font-size: 32px;
   line-height: 32px;
 }
 
 .location {
-  font-weight: 500;
+  font-weight: 700;
   font-size: 24px;
   color: #5a5a5a;
 }
@@ -163,13 +163,13 @@
 }
 
 .donationText {
-  font-weight: 500;
+  font-weight: 600;
   font-size: 22px;
   color: #5a5a5a;
 }
 
 .goalText {
-  font-weight: 500;
+  font-weight: 600;
   font-size: 18px;
   color: #939393;
 }

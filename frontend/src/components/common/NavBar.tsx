@@ -9,18 +9,18 @@ import Link from "next/link";
 function NavBar(props?: any) {
   const links = [
     {
-      route: "/",
+      route: "/explore",
       name: "Projects",
       badgeCount: 0,
     },
     {
-      route: "/",
+      route: "/voting",
       name: "Voting",
       badgeCount: 0,
     },
     {
-      route: "/",
-      name: "Help",
+      route: "/explore",
+      name: "Media Archive",
       badgeCount: 0,
     },
     {
@@ -29,8 +29,8 @@ function NavBar(props?: any) {
       badgeCount: 4,
     },
     {
-      route: "/explore",
-      name: "Media Archive",
+      route: "/dashboard/donations",
+      name: "Dashboard",
       badgeCount: 0,
     },
   ];
@@ -66,11 +66,13 @@ function NavBar(props?: any) {
           <div className="flex gap-[20px] xl:gap-[50px] text-[16px] items-center select-none">
             {links.map((item, index) => (
               <div key={index} className="flex gap-2">
+                <Link href={item.route}>
                 <p
                   className={`hover:text-primary cursor-pointer flex items-center gap-2  font-[400] text-gray`}
                 >
                   {item.name}
                 </p>
+                </Link>
                 {item.badgeCount ? (
                   <div className="h-8 w-8 rounded-full bg-primary flex justify-center items-center  font-semibold text-white">
                     {item.badgeCount}

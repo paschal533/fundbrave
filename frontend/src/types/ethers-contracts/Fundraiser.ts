@@ -25,21 +25,78 @@ import type {
   TypedEvent,
   TypedListener,
   OnEvent,
-  PromiseOrValue,
 } from "./common";
+
+export declare namespace Fundraiser {
+  export type ProposalStruct = {
+    id: BigNumberish;
+    title: string;
+    description: string;
+    date: BigNumberish;
+    upvotes: BigNumberish;
+    downvotes: BigNumberish;
+    exists: boolean;
+  };
+
+  export type ProposalStructOutput = [
+    BigNumber,
+    string,
+    string,
+    BigNumber,
+    BigNumber,
+    BigNumber,
+    boolean
+  ] & {
+    id: BigNumber;
+    title: string;
+    description: string;
+    date: BigNumber;
+    upvotes: BigNumber;
+    downvotes: BigNumber;
+    exists: boolean;
+  };
+
+  export type MediaArchiveStruct = {
+    id: BigNumberish;
+    title: string;
+    description: string;
+    url: string;
+    date: BigNumberish;
+  };
+
+  export type MediaArchiveStructOutput = [
+    BigNumber,
+    string,
+    string,
+    string,
+    BigNumber
+  ] & {
+    id: BigNumber;
+    title: string;
+    description: string;
+    url: string;
+    date: BigNumber;
+  };
+}
 
 export interface FundraiserInterface extends utils.Interface {
   functions: {
+    "_donors(address)": FunctionFragment;
     "beneficiary()": FunctionFragment;
     "categories(uint256)": FunctionFragment;
     "custodian()": FunctionFragment;
     "description()": FunctionFragment;
     "donationsCount()": FunctionFragment;
     "goal()": FunctionFragment;
+    "hasVoted(address,uint256)": FunctionFragment;
     "id()": FunctionFragment;
     "images(uint256)": FunctionFragment;
+    "mediaArchiveCount()": FunctionFragment;
+    "mediaArchives(uint256)": FunctionFragment;
     "name()": FunctionFragment;
     "owner()": FunctionFragment;
+    "proposalCount()": FunctionFragment;
+    "proposals(uint256)": FunctionFragment;
     "region()": FunctionFragment;
     "renounceOwnership()": FunctionFragment;
     "totalDonations()": FunctionFragment;
@@ -52,22 +109,33 @@ export interface FundraiserInterface extends utils.Interface {
     "allDonationsCount()": FunctionFragment;
     "donate()": FunctionFragment;
     "myDonations()": FunctionFragment;
+    "createProposal(string,string)": FunctionFragment;
+    "vote(uint256,bool)": FunctionFragment;
+    "getProposals()": FunctionFragment;
+    "createMediaArchive(string,string,string)": FunctionFragment;
+    "getMediaArchive()": FunctionFragment;
     "allDonations()": FunctionFragment;
     "withdraw()": FunctionFragment;
   };
 
   getFunction(
     nameOrSignatureOrTopic:
+      | "_donors"
       | "beneficiary"
       | "categories"
       | "custodian"
       | "description"
       | "donationsCount"
       | "goal"
+      | "hasVoted"
       | "id"
       | "images"
+      | "mediaArchiveCount"
+      | "mediaArchives"
       | "name"
       | "owner"
+      | "proposalCount"
+      | "proposals"
       | "region"
       | "renounceOwnership"
       | "totalDonations"
@@ -80,158 +148,242 @@ export interface FundraiserInterface extends utils.Interface {
       | "allDonationsCount"
       | "donate"
       | "myDonations"
+      | "createProposal"
+      | "vote"
+      | "getProposals"
+      | "createMediaArchive"
+      | "getMediaArchive"
       | "allDonations"
-      | "withdraw",
+      | "withdraw"
   ): FunctionFragment;
 
+  encodeFunctionData(functionFragment: "_donors", values: [string]): string;
   encodeFunctionData(
     functionFragment: "beneficiary",
-    values?: undefined,
+    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "categories",
-    values: [PromiseOrValue<BigNumberish>],
+    values: [BigNumberish]
   ): string;
   encodeFunctionData(functionFragment: "custodian", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "description",
-    values?: undefined,
+    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "donationsCount",
-    values?: undefined,
+    values?: undefined
   ): string;
   encodeFunctionData(functionFragment: "goal", values?: undefined): string;
+  encodeFunctionData(
+    functionFragment: "hasVoted",
+    values: [string, BigNumberish]
+  ): string;
   encodeFunctionData(functionFragment: "id", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "images",
-    values: [PromiseOrValue<BigNumberish>],
+    values: [BigNumberish]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "mediaArchiveCount",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "mediaArchives",
+    values: [BigNumberish]
   ): string;
   encodeFunctionData(functionFragment: "name", values?: undefined): string;
   encodeFunctionData(functionFragment: "owner", values?: undefined): string;
+  encodeFunctionData(
+    functionFragment: "proposalCount",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "proposals",
+    values: [BigNumberish]
+  ): string;
   encodeFunctionData(functionFragment: "region", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "renounceOwnership",
-    values?: undefined,
+    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "totalDonations",
-    values?: undefined,
+    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "totalDonationsCount",
-    values?: undefined,
+    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "transferOwnership",
-    values: [PromiseOrValue<string>],
+    values: [string]
   ): string;
   encodeFunctionData(
     functionFragment: "setBeneficiary",
-    values: [PromiseOrValue<string>],
+    values: [string]
   ): string;
   encodeFunctionData(
     functionFragment: "getImageUrls",
-    values?: undefined,
+    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "getCategories",
-    values?: undefined,
+    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "myDonationsCount",
-    values?: undefined,
+    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "allDonationsCount",
-    values?: undefined,
+    values?: undefined
   ): string;
   encodeFunctionData(functionFragment: "donate", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "myDonations",
-    values?: undefined,
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "createProposal",
+    values: [string, string]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "vote",
+    values: [BigNumberish, boolean]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "getProposals",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "createMediaArchive",
+    values: [string, string, string]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "getMediaArchive",
+    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "allDonations",
-    values?: undefined,
+    values?: undefined
   ): string;
   encodeFunctionData(functionFragment: "withdraw", values?: undefined): string;
 
+  decodeFunctionResult(functionFragment: "_donors", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "beneficiary",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "categories", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "custodian", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "description",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "donationsCount",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "goal", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "hasVoted", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "id", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "images", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "mediaArchiveCount",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "mediaArchives",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "name", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "owner", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "proposalCount",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(functionFragment: "proposals", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "region", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "renounceOwnership",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "totalDonations",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "totalDonationsCount",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "transferOwnership",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "setBeneficiary",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "getImageUrls",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "getCategories",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "myDonationsCount",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "allDonationsCount",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "donate", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "myDonations",
-    data: BytesLike,
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "createProposal",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(functionFragment: "vote", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "getProposals",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "createMediaArchive",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "getMediaArchive",
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "allDonations",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "withdraw", data: BytesLike): Result;
 
   events: {
     "DonationReceived(address,uint256)": EventFragment;
+    "MediaArchiveCreated(uint256,string,string,string,uint256)": EventFragment;
     "OwnershipTransferred(address,address)": EventFragment;
+    "ProposalCreated(uint256,string,string,uint256,uint256,uint256)": EventFragment;
+    "Voted(uint256,address,bool)": EventFragment;
     "Withdraw(uint256)": EventFragment;
   };
 
   getEvent(nameOrSignatureOrTopic: "DonationReceived"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "MediaArchiveCreated"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "OwnershipTransferred"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "ProposalCreated"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "Voted"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "Withdraw"): EventFragment;
 }
 
@@ -247,6 +399,21 @@ export type DonationReceivedEvent = TypedEvent<
 export type DonationReceivedEventFilter =
   TypedEventFilter<DonationReceivedEvent>;
 
+export interface MediaArchiveCreatedEventObject {
+  id: BigNumber;
+  title: string;
+  description: string;
+  url: string;
+  date: BigNumber;
+}
+export type MediaArchiveCreatedEvent = TypedEvent<
+  [BigNumber, string, string, string, BigNumber],
+  MediaArchiveCreatedEventObject
+>;
+
+export type MediaArchiveCreatedEventFilter =
+  TypedEventFilter<MediaArchiveCreatedEvent>;
+
 export interface OwnershipTransferredEventObject {
   previousOwner: string;
   newOwner: string;
@@ -258,6 +425,33 @@ export type OwnershipTransferredEvent = TypedEvent<
 
 export type OwnershipTransferredEventFilter =
   TypedEventFilter<OwnershipTransferredEvent>;
+
+export interface ProposalCreatedEventObject {
+  id: BigNumber;
+  title: string;
+  description: string;
+  date: BigNumber;
+  upvotes: BigNumber;
+  downvotes: BigNumber;
+}
+export type ProposalCreatedEvent = TypedEvent<
+  [BigNumber, string, string, BigNumber, BigNumber, BigNumber],
+  ProposalCreatedEventObject
+>;
+
+export type ProposalCreatedEventFilter = TypedEventFilter<ProposalCreatedEvent>;
+
+export interface VotedEventObject {
+  id: BigNumber;
+  voter: string;
+  upvote: boolean;
+}
+export type VotedEvent = TypedEvent<
+  [BigNumber, string, boolean],
+  VotedEventObject
+>;
+
+export type VotedEventFilter = TypedEventFilter<VotedEvent>;
 
 export interface WithdrawEventObject {
   amount: BigNumber;
@@ -276,15 +470,15 @@ export interface Fundraiser extends BaseContract {
   queryFilter<TEvent extends TypedEvent>(
     event: TypedEventFilter<TEvent>,
     fromBlockOrBlockhash?: string | number | undefined,
-    toBlock?: string | number | undefined,
+    toBlock?: string | number | undefined
   ): Promise<Array<TEvent>>;
 
   listeners<TEvent extends TypedEvent>(
-    eventFilter?: TypedEventFilter<TEvent>,
+    eventFilter?: TypedEventFilter<TEvent>
   ): Array<TypedListener<TEvent>>;
   listeners(eventName?: string): Array<Listener>;
   removeAllListeners<TEvent extends TypedEvent>(
-    eventFilter: TypedEventFilter<TEvent>,
+    eventFilter: TypedEventFilter<TEvent>
   ): this;
   removeAllListeners(eventName?: string): this;
   off: OnEvent<this>;
@@ -293,11 +487,13 @@ export interface Fundraiser extends BaseContract {
   removeListener: OnEvent<this>;
 
   functions: {
+    _donors(arg0: string, overrides?: CallOverrides): Promise<[boolean]>;
+
     beneficiary(overrides?: CallOverrides): Promise<[string]>;
 
     categories(
-      arg0: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides,
+      arg0: BigNumberish,
+      overrides?: CallOverrides
     ): Promise<[string]>;
 
     custodian(overrides?: CallOverrides): Promise<[string]>;
@@ -308,12 +504,30 @@ export interface Fundraiser extends BaseContract {
 
     goal(overrides?: CallOverrides): Promise<[BigNumber]>;
 
+    hasVoted(
+      arg0: string,
+      arg1: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<[boolean]>;
+
     id(overrides?: CallOverrides): Promise<[BigNumber]>;
 
-    images(
-      arg0: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides,
-    ): Promise<[string]>;
+    images(arg0: BigNumberish, overrides?: CallOverrides): Promise<[string]>;
+
+    mediaArchiveCount(overrides?: CallOverrides): Promise<[BigNumber]>;
+
+    mediaArchives(
+      arg0: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<
+      [BigNumber, string, string, string, BigNumber] & {
+        id: BigNumber;
+        title: string;
+        description: string;
+        url: string;
+        date: BigNumber;
+      }
+    >;
 
     name(overrides?: CallOverrides): Promise<[string]>;
 
@@ -322,13 +536,30 @@ export interface Fundraiser extends BaseContract {
      */
     owner(overrides?: CallOverrides): Promise<[string]>;
 
+    proposalCount(overrides?: CallOverrides): Promise<[BigNumber]>;
+
+    proposals(
+      arg0: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<
+      [BigNumber, string, string, BigNumber, BigNumber, BigNumber, boolean] & {
+        id: BigNumber;
+        title: string;
+        description: string;
+        date: BigNumber;
+        upvotes: BigNumber;
+        downvotes: BigNumber;
+        exists: boolean;
+      }
+    >;
+
     region(overrides?: CallOverrides): Promise<[string]>;
 
     /**
      * Leaves the contract without owner. It will not be possible to call `onlyOwner` functions anymore. Can only be called by the current owner. NOTE: Renouncing ownership will leave the contract without an owner, thereby removing any functionality that is only available to the owner.
      */
     renounceOwnership(
-      overrides?: Overrides & { from?: PromiseOrValue<string> },
+      overrides?: Overrides & { from?: string }
     ): Promise<ContractTransaction>;
 
     totalDonations(overrides?: CallOverrides): Promise<[BigNumber]>;
@@ -339,13 +570,13 @@ export interface Fundraiser extends BaseContract {
      * Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner.
      */
     transferOwnership(
-      newOwner: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> },
+      newOwner: string,
+      overrides?: Overrides & { from?: string }
     ): Promise<ContractTransaction>;
 
     setBeneficiary(
-      _beneficiary: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> },
+      _beneficiary: string,
+      overrides?: Overrides & { from?: string }
     ): Promise<ContractTransaction>;
 
     getImageUrls(overrides?: CallOverrides): Promise<[string[]]>;
@@ -357,16 +588,45 @@ export interface Fundraiser extends BaseContract {
     allDonationsCount(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     donate(
-      overrides?: PayableOverrides & { from?: PromiseOrValue<string> },
+      overrides?: PayableOverrides & { from?: string }
     ): Promise<ContractTransaction>;
 
     myDonations(
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<
       [BigNumber[], BigNumber[]] & { values: BigNumber[]; dates: BigNumber[] }
     >;
 
-    allDonations(overrides?: CallOverrides): Promise<
+    createProposal(
+      _title: string,
+      _description: string,
+      overrides?: Overrides & { from?: string }
+    ): Promise<ContractTransaction>;
+
+    vote(
+      _id: BigNumberish,
+      _upvote: boolean,
+      overrides?: Overrides & { from?: string }
+    ): Promise<ContractTransaction>;
+
+    getProposals(
+      overrides?: CallOverrides
+    ): Promise<[Fundraiser.ProposalStructOutput[]]>;
+
+    createMediaArchive(
+      _title: string,
+      _description: string,
+      _url: string,
+      overrides?: Overrides & { from?: string }
+    ): Promise<ContractTransaction>;
+
+    getMediaArchive(
+      overrides?: CallOverrides
+    ): Promise<[Fundraiser.MediaArchiveStructOutput[]]>;
+
+    allDonations(
+      overrides?: CallOverrides
+    ): Promise<
       [string[], BigNumber[], BigNumber[]] & {
         donors: string[];
         values: BigNumber[];
@@ -375,16 +635,15 @@ export interface Fundraiser extends BaseContract {
     >;
 
     withdraw(
-      overrides?: Overrides & { from?: PromiseOrValue<string> },
+      overrides?: Overrides & { from?: string }
     ): Promise<ContractTransaction>;
   };
 
+  _donors(arg0: string, overrides?: CallOverrides): Promise<boolean>;
+
   beneficiary(overrides?: CallOverrides): Promise<string>;
 
-  categories(
-    arg0: PromiseOrValue<BigNumberish>,
-    overrides?: CallOverrides,
-  ): Promise<string>;
+  categories(arg0: BigNumberish, overrides?: CallOverrides): Promise<string>;
 
   custodian(overrides?: CallOverrides): Promise<string>;
 
@@ -394,12 +653,30 @@ export interface Fundraiser extends BaseContract {
 
   goal(overrides?: CallOverrides): Promise<BigNumber>;
 
+  hasVoted(
+    arg0: string,
+    arg1: BigNumberish,
+    overrides?: CallOverrides
+  ): Promise<boolean>;
+
   id(overrides?: CallOverrides): Promise<BigNumber>;
 
-  images(
-    arg0: PromiseOrValue<BigNumberish>,
-    overrides?: CallOverrides,
-  ): Promise<string>;
+  images(arg0: BigNumberish, overrides?: CallOverrides): Promise<string>;
+
+  mediaArchiveCount(overrides?: CallOverrides): Promise<BigNumber>;
+
+  mediaArchives(
+    arg0: BigNumberish,
+    overrides?: CallOverrides
+  ): Promise<
+    [BigNumber, string, string, string, BigNumber] & {
+      id: BigNumber;
+      title: string;
+      description: string;
+      url: string;
+      date: BigNumber;
+    }
+  >;
 
   name(overrides?: CallOverrides): Promise<string>;
 
@@ -408,13 +685,30 @@ export interface Fundraiser extends BaseContract {
    */
   owner(overrides?: CallOverrides): Promise<string>;
 
+  proposalCount(overrides?: CallOverrides): Promise<BigNumber>;
+
+  proposals(
+    arg0: BigNumberish,
+    overrides?: CallOverrides
+  ): Promise<
+    [BigNumber, string, string, BigNumber, BigNumber, BigNumber, boolean] & {
+      id: BigNumber;
+      title: string;
+      description: string;
+      date: BigNumber;
+      upvotes: BigNumber;
+      downvotes: BigNumber;
+      exists: boolean;
+    }
+  >;
+
   region(overrides?: CallOverrides): Promise<string>;
 
   /**
    * Leaves the contract without owner. It will not be possible to call `onlyOwner` functions anymore. Can only be called by the current owner. NOTE: Renouncing ownership will leave the contract without an owner, thereby removing any functionality that is only available to the owner.
    */
   renounceOwnership(
-    overrides?: Overrides & { from?: PromiseOrValue<string> },
+    overrides?: Overrides & { from?: string }
   ): Promise<ContractTransaction>;
 
   totalDonations(overrides?: CallOverrides): Promise<BigNumber>;
@@ -425,13 +719,13 @@ export interface Fundraiser extends BaseContract {
    * Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner.
    */
   transferOwnership(
-    newOwner: PromiseOrValue<string>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> },
+    newOwner: string,
+    overrides?: Overrides & { from?: string }
   ): Promise<ContractTransaction>;
 
   setBeneficiary(
-    _beneficiary: PromiseOrValue<string>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> },
+    _beneficiary: string,
+    overrides?: Overrides & { from?: string }
   ): Promise<ContractTransaction>;
 
   getImageUrls(overrides?: CallOverrides): Promise<string[]>;
@@ -443,16 +737,45 @@ export interface Fundraiser extends BaseContract {
   allDonationsCount(overrides?: CallOverrides): Promise<BigNumber>;
 
   donate(
-    overrides?: PayableOverrides & { from?: PromiseOrValue<string> },
+    overrides?: PayableOverrides & { from?: string }
   ): Promise<ContractTransaction>;
 
   myDonations(
-    overrides?: CallOverrides,
+    overrides?: CallOverrides
   ): Promise<
     [BigNumber[], BigNumber[]] & { values: BigNumber[]; dates: BigNumber[] }
   >;
 
-  allDonations(overrides?: CallOverrides): Promise<
+  createProposal(
+    _title: string,
+    _description: string,
+    overrides?: Overrides & { from?: string }
+  ): Promise<ContractTransaction>;
+
+  vote(
+    _id: BigNumberish,
+    _upvote: boolean,
+    overrides?: Overrides & { from?: string }
+  ): Promise<ContractTransaction>;
+
+  getProposals(
+    overrides?: CallOverrides
+  ): Promise<Fundraiser.ProposalStructOutput[]>;
+
+  createMediaArchive(
+    _title: string,
+    _description: string,
+    _url: string,
+    overrides?: Overrides & { from?: string }
+  ): Promise<ContractTransaction>;
+
+  getMediaArchive(
+    overrides?: CallOverrides
+  ): Promise<Fundraiser.MediaArchiveStructOutput[]>;
+
+  allDonations(
+    overrides?: CallOverrides
+  ): Promise<
     [string[], BigNumber[], BigNumber[]] & {
       donors: string[];
       values: BigNumber[];
@@ -461,16 +784,15 @@ export interface Fundraiser extends BaseContract {
   >;
 
   withdraw(
-    overrides?: Overrides & { from?: PromiseOrValue<string> },
+    overrides?: Overrides & { from?: string }
   ): Promise<ContractTransaction>;
 
   callStatic: {
+    _donors(arg0: string, overrides?: CallOverrides): Promise<boolean>;
+
     beneficiary(overrides?: CallOverrides): Promise<string>;
 
-    categories(
-      arg0: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides,
-    ): Promise<string>;
+    categories(arg0: BigNumberish, overrides?: CallOverrides): Promise<string>;
 
     custodian(overrides?: CallOverrides): Promise<string>;
 
@@ -480,12 +802,30 @@ export interface Fundraiser extends BaseContract {
 
     goal(overrides?: CallOverrides): Promise<BigNumber>;
 
+    hasVoted(
+      arg0: string,
+      arg1: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<boolean>;
+
     id(overrides?: CallOverrides): Promise<BigNumber>;
 
-    images(
-      arg0: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides,
-    ): Promise<string>;
+    images(arg0: BigNumberish, overrides?: CallOverrides): Promise<string>;
+
+    mediaArchiveCount(overrides?: CallOverrides): Promise<BigNumber>;
+
+    mediaArchives(
+      arg0: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<
+      [BigNumber, string, string, string, BigNumber] & {
+        id: BigNumber;
+        title: string;
+        description: string;
+        url: string;
+        date: BigNumber;
+      }
+    >;
 
     name(overrides?: CallOverrides): Promise<string>;
 
@@ -493,6 +833,23 @@ export interface Fundraiser extends BaseContract {
      * Returns the address of the current owner.
      */
     owner(overrides?: CallOverrides): Promise<string>;
+
+    proposalCount(overrides?: CallOverrides): Promise<BigNumber>;
+
+    proposals(
+      arg0: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<
+      [BigNumber, string, string, BigNumber, BigNumber, BigNumber, boolean] & {
+        id: BigNumber;
+        title: string;
+        description: string;
+        date: BigNumber;
+        upvotes: BigNumber;
+        downvotes: BigNumber;
+        exists: boolean;
+      }
+    >;
 
     region(overrides?: CallOverrides): Promise<string>;
 
@@ -509,13 +866,13 @@ export interface Fundraiser extends BaseContract {
      * Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner.
      */
     transferOwnership(
-      newOwner: PromiseOrValue<string>,
-      overrides?: CallOverrides,
+      newOwner: string,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     setBeneficiary(
-      _beneficiary: PromiseOrValue<string>,
-      overrides?: CallOverrides,
+      _beneficiary: string,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     getImageUrls(overrides?: CallOverrides): Promise<string[]>;
@@ -529,12 +886,41 @@ export interface Fundraiser extends BaseContract {
     donate(overrides?: CallOverrides): Promise<void>;
 
     myDonations(
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<
       [BigNumber[], BigNumber[]] & { values: BigNumber[]; dates: BigNumber[] }
     >;
 
-    allDonations(overrides?: CallOverrides): Promise<
+    createProposal(
+      _title: string,
+      _description: string,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    vote(
+      _id: BigNumberish,
+      _upvote: boolean,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    getProposals(
+      overrides?: CallOverrides
+    ): Promise<Fundraiser.ProposalStructOutput[]>;
+
+    createMediaArchive(
+      _title: string,
+      _description: string,
+      _url: string,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    getMediaArchive(
+      overrides?: CallOverrides
+    ): Promise<Fundraiser.MediaArchiveStructOutput[]>;
+
+    allDonations(
+      overrides?: CallOverrides
+    ): Promise<
       [string[], BigNumber[], BigNumber[]] & {
         donors: string[];
         values: BigNumber[];
@@ -547,33 +933,74 @@ export interface Fundraiser extends BaseContract {
 
   filters: {
     "DonationReceived(address,uint256)"(
-      donor?: PromiseOrValue<string> | null,
-      value?: null,
+      donor?: string | null,
+      value?: null
     ): DonationReceivedEventFilter;
     DonationReceived(
-      donor?: PromiseOrValue<string> | null,
-      value?: null,
+      donor?: string | null,
+      value?: null
     ): DonationReceivedEventFilter;
 
+    "MediaArchiveCreated(uint256,string,string,string,uint256)"(
+      id?: null,
+      title?: null,
+      description?: null,
+      url?: null,
+      date?: null
+    ): MediaArchiveCreatedEventFilter;
+    MediaArchiveCreated(
+      id?: null,
+      title?: null,
+      description?: null,
+      url?: null,
+      date?: null
+    ): MediaArchiveCreatedEventFilter;
+
     "OwnershipTransferred(address,address)"(
-      previousOwner?: PromiseOrValue<string> | null,
-      newOwner?: PromiseOrValue<string> | null,
+      previousOwner?: string | null,
+      newOwner?: string | null
     ): OwnershipTransferredEventFilter;
     OwnershipTransferred(
-      previousOwner?: PromiseOrValue<string> | null,
-      newOwner?: PromiseOrValue<string> | null,
+      previousOwner?: string | null,
+      newOwner?: string | null
     ): OwnershipTransferredEventFilter;
+
+    "ProposalCreated(uint256,string,string,uint256,uint256,uint256)"(
+      id?: null,
+      title?: null,
+      description?: null,
+      date?: null,
+      upvotes?: null,
+      downvotes?: null
+    ): ProposalCreatedEventFilter;
+    ProposalCreated(
+      id?: null,
+      title?: null,
+      description?: null,
+      date?: null,
+      upvotes?: null,
+      downvotes?: null
+    ): ProposalCreatedEventFilter;
+
+    "Voted(uint256,address,bool)"(
+      id?: null,
+      voter?: string | null,
+      upvote?: null
+    ): VotedEventFilter;
+    Voted(id?: null, voter?: string | null, upvote?: null): VotedEventFilter;
 
     "Withdraw(uint256)"(amount?: null): WithdrawEventFilter;
     Withdraw(amount?: null): WithdrawEventFilter;
   };
 
   estimateGas: {
+    _donors(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
+
     beneficiary(overrides?: CallOverrides): Promise<BigNumber>;
 
     categories(
-      arg0: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides,
+      arg0: BigNumberish,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     custodian(overrides?: CallOverrides): Promise<BigNumber>;
@@ -584,11 +1011,21 @@ export interface Fundraiser extends BaseContract {
 
     goal(overrides?: CallOverrides): Promise<BigNumber>;
 
+    hasVoted(
+      arg0: string,
+      arg1: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
     id(overrides?: CallOverrides): Promise<BigNumber>;
 
-    images(
-      arg0: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides,
+    images(arg0: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>;
+
+    mediaArchiveCount(overrides?: CallOverrides): Promise<BigNumber>;
+
+    mediaArchives(
+      arg0: BigNumberish,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     name(overrides?: CallOverrides): Promise<BigNumber>;
@@ -598,13 +1035,20 @@ export interface Fundraiser extends BaseContract {
      */
     owner(overrides?: CallOverrides): Promise<BigNumber>;
 
+    proposalCount(overrides?: CallOverrides): Promise<BigNumber>;
+
+    proposals(
+      arg0: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
     region(overrides?: CallOverrides): Promise<BigNumber>;
 
     /**
      * Leaves the contract without owner. It will not be possible to call `onlyOwner` functions anymore. Can only be called by the current owner. NOTE: Renouncing ownership will leave the contract without an owner, thereby removing any functionality that is only available to the owner.
      */
     renounceOwnership(
-      overrides?: Overrides & { from?: PromiseOrValue<string> },
+      overrides?: Overrides & { from?: string }
     ): Promise<BigNumber>;
 
     totalDonations(overrides?: CallOverrides): Promise<BigNumber>;
@@ -615,13 +1059,13 @@ export interface Fundraiser extends BaseContract {
      * Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner.
      */
     transferOwnership(
-      newOwner: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> },
+      newOwner: string,
+      overrides?: Overrides & { from?: string }
     ): Promise<BigNumber>;
 
     setBeneficiary(
-      _beneficiary: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> },
+      _beneficiary: string,
+      overrides?: Overrides & { from?: string }
     ): Promise<BigNumber>;
 
     getImageUrls(overrides?: CallOverrides): Promise<BigNumber>;
@@ -633,24 +1077,50 @@ export interface Fundraiser extends BaseContract {
     allDonationsCount(overrides?: CallOverrides): Promise<BigNumber>;
 
     donate(
-      overrides?: PayableOverrides & { from?: PromiseOrValue<string> },
+      overrides?: PayableOverrides & { from?: string }
     ): Promise<BigNumber>;
 
     myDonations(overrides?: CallOverrides): Promise<BigNumber>;
 
+    createProposal(
+      _title: string,
+      _description: string,
+      overrides?: Overrides & { from?: string }
+    ): Promise<BigNumber>;
+
+    vote(
+      _id: BigNumberish,
+      _upvote: boolean,
+      overrides?: Overrides & { from?: string }
+    ): Promise<BigNumber>;
+
+    getProposals(overrides?: CallOverrides): Promise<BigNumber>;
+
+    createMediaArchive(
+      _title: string,
+      _description: string,
+      _url: string,
+      overrides?: Overrides & { from?: string }
+    ): Promise<BigNumber>;
+
+    getMediaArchive(overrides?: CallOverrides): Promise<BigNumber>;
+
     allDonations(overrides?: CallOverrides): Promise<BigNumber>;
 
-    withdraw(
-      overrides?: Overrides & { from?: PromiseOrValue<string> },
-    ): Promise<BigNumber>;
+    withdraw(overrides?: Overrides & { from?: string }): Promise<BigNumber>;
   };
 
   populateTransaction: {
+    _donors(
+      arg0: string,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
     beneficiary(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     categories(
-      arg0: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides,
+      arg0: BigNumberish,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     custodian(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -661,11 +1131,24 @@ export interface Fundraiser extends BaseContract {
 
     goal(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
+    hasVoted(
+      arg0: string,
+      arg1: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
     id(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     images(
-      arg0: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides,
+      arg0: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    mediaArchiveCount(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    mediaArchives(
+      arg0: BigNumberish,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     name(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -675,32 +1158,39 @@ export interface Fundraiser extends BaseContract {
      */
     owner(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
+    proposalCount(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    proposals(
+      arg0: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
     region(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     /**
      * Leaves the contract without owner. It will not be possible to call `onlyOwner` functions anymore. Can only be called by the current owner. NOTE: Renouncing ownership will leave the contract without an owner, thereby removing any functionality that is only available to the owner.
      */
     renounceOwnership(
-      overrides?: Overrides & { from?: PromiseOrValue<string> },
+      overrides?: Overrides & { from?: string }
     ): Promise<PopulatedTransaction>;
 
     totalDonations(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     totalDonationsCount(
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     /**
      * Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner.
      */
     transferOwnership(
-      newOwner: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> },
+      newOwner: string,
+      overrides?: Overrides & { from?: string }
     ): Promise<PopulatedTransaction>;
 
     setBeneficiary(
-      _beneficiary: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> },
+      _beneficiary: string,
+      overrides?: Overrides & { from?: string }
     ): Promise<PopulatedTransaction>;
 
     getImageUrls(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -712,15 +1202,38 @@ export interface Fundraiser extends BaseContract {
     allDonationsCount(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     donate(
-      overrides?: PayableOverrides & { from?: PromiseOrValue<string> },
+      overrides?: PayableOverrides & { from?: string }
     ): Promise<PopulatedTransaction>;
 
     myDonations(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
+    createProposal(
+      _title: string,
+      _description: string,
+      overrides?: Overrides & { from?: string }
+    ): Promise<PopulatedTransaction>;
+
+    vote(
+      _id: BigNumberish,
+      _upvote: boolean,
+      overrides?: Overrides & { from?: string }
+    ): Promise<PopulatedTransaction>;
+
+    getProposals(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    createMediaArchive(
+      _title: string,
+      _description: string,
+      _url: string,
+      overrides?: Overrides & { from?: string }
+    ): Promise<PopulatedTransaction>;
+
+    getMediaArchive(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
     allDonations(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     withdraw(
-      overrides?: Overrides & { from?: PromiseOrValue<string> },
+      overrides?: Overrides & { from?: string }
     ): Promise<PopulatedTransaction>;
   };
 }

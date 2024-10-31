@@ -45,7 +45,7 @@ export default function Providers({ children }: Props) {
     const newWalletClient = createWalletClient({
       chain: filecoinCalibration,
       // @ts-ignore
-      transport: custom(window.ethereum as any),
+      transport: custom(window.silk as any),
     });
     const newPublicClient = createPublicClient({
       chain: filecoinCalibration,
@@ -60,12 +60,12 @@ export default function Providers({ children }: Props) {
 
     const silk = initSilk();
     // @ts-ignore
-    window.ethereum = silk
+    window.silk = silk
 
     const checkConnection = async () => {
       try {
         // @ts-ignore
-        const accounts = await window.ethereum.request({ method: "eth_accounts", params: [{ chainId: '0x4cb2f' }] });
+        const accounts = await window.silk.request({ method: "eth_accounts", params: [{ chainId: '0x4cb2f' }] });
         //@ts-ignore
         if (accounts?.length > 0) {
           //@ts-ignore

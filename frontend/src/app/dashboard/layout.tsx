@@ -18,8 +18,8 @@ const OwnerLayout = ({ children }: Props) => {
       <div
         className={cn(
           "w-full pl-0 h-screen flex flex-col",
-          expand == undefined && "md:pl-[17rem]",
-          expand == true ? "md:pl-[17rem]" : expand == false && "md:pl-[12rem]",
+          expand == undefined && "lg:pl-[17rem]",
+          expand == true ? "lg:pl-[17rem]" : expand == false && "lg:!pl-[12rem]",
         )}
       >
         {children}

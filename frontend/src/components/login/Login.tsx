@@ -10,7 +10,7 @@ export default function Login({ width, style } : { width? : any, style?: any}) {
 
   return (
     <div>
-      {verifyConnection || !accounts ? (
+      {verifyConnection && !accounts ? (
          <WalletModal width={width} style={style} />
       ) : (
         <button

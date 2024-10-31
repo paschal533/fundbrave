@@ -59,7 +59,7 @@ const _abi = [
     stateMutability: "nonpayable",
     type: "function",
   },
-];
+] as const;
 
 export class Ownable__factory {
   static readonly abi = _abi;
@@ -68,7 +68,7 @@ export class Ownable__factory {
   }
   static connect(
     address: string,
-    signerOrProvider: Signer | Provider,
+    signerOrProvider: Signer | Provider
   ): Ownable {
     return new Contract(address, _abi, signerOrProvider) as Ownable;
   }

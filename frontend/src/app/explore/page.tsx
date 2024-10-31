@@ -100,8 +100,7 @@ function Explore() {
                       <Link
                         key={index}
                         href={{
-                          pathname: "/fundraiser-details",
-                          query: { address: fundraiser.address },
+                          pathname: `/details/${fundraiser.address}`,
                         }}
                       >
                         <VStack
@@ -111,7 +110,7 @@ function Explore() {
                           <HStack className={styles.profileCell}>
                             <Image
                               alt="0xcarhartt"
-                              src="/profiles/donor_2.png"
+                              src="/images/donor_2.png"
                               className={styles.profileImage}
                             ></Image>
                             <Text className={styles.profileName}>
@@ -153,7 +152,7 @@ function Explore() {
                             <HStack>
                               <Image
                                 alt="money icon"
-                                src="/money.png"
+                                src="/images/money.png"
                                 width="20px"
                               ></Image>
                               <Text
@@ -195,8 +194,7 @@ function Explore() {
                     <Link
                       key={index}
                       href={{
-                        pathname: "/fundraiser-details",
-                        query: { address: fundraiser.address },
+                        pathname: `/details/${fundraiser.address}`,
                       }}
                     >
                       <VStack
@@ -206,7 +204,7 @@ function Explore() {
                         <HStack className={styles.profileCell}>
                           <Image
                             alt="0xcarhartt"
-                            src="/profiles/donor_2.png"
+                            src="/images/donor_2.png"
                             className={styles.profileImage}
                           ></Image>
                           <Text className={styles.profileName}>
@@ -248,7 +246,7 @@ function Explore() {
                           <HStack>
                             <Image
                               alt="money icon"
-                              src="/money.png"
+                              src="/images/money.png"
                               width="20px"
                             ></Image>
                             <Text

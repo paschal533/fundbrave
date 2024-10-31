@@ -20,17 +20,17 @@ export const SIDE_BAR_MENU: SIDE_BAR_MENU_PROPS[] = [
   {
     label: "Donation Records",
     icon: <ArrowRightLeft className="h-7 w-7 mr-2 text-sky-500" />,
-    path: "donations",
+    path: "dashboard/donations",
   },
   {
     label: "POAPs Received",
     icon: <Droplets className="h-7 w-7 mr-2 text-orange" />,
-    path: "poaps",
+    path: "dashboard/poaps",
   },
   {
     label: "Active campaigns",
     icon: <Boxes className="h-7 w-7 mr-2 text-pink-700" />,
-    path: "campaigns",
+    path: "dashboard/campaigns",
   }
 ];
 

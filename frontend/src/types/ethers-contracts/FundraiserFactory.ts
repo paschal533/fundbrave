@@ -24,7 +24,6 @@ import type {
   TypedEvent,
   TypedListener,
   OnEvent,
-  PromiseOrValue,
 } from "./common";
 
 export interface FundraiserFactoryInterface extends utils.Interface {
@@ -40,43 +39,35 @@ export interface FundraiserFactoryInterface extends utils.Interface {
       | "currentId"
       | "createFundraiser"
       | "fundraisersCount"
-      | "fundraisers",
+      | "fundraisers"
   ): FunctionFragment;
 
   encodeFunctionData(functionFragment: "currentId", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "createFundraiser",
-    values: [
-      PromiseOrValue<string>,
-      PromiseOrValue<string>[],
-      PromiseOrValue<string>[],
-      PromiseOrValue<string>,
-      PromiseOrValue<string>,
-      PromiseOrValue<string>,
-      PromiseOrValue<BigNumberish>,
-    ],
+    values: [string, string[], string[], string, string, string, BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "fundraisersCount",
-    values?: undefined,
+    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "fundraisers",
-    values: [PromiseOrValue<BigNumberish>, PromiseOrValue<BigNumberish>],
+    values: [BigNumberish, BigNumberish]
   ): string;
 
   decodeFunctionResult(functionFragment: "currentId", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "createFundraiser",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "fundraisersCount",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "fundraisers",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
 
   events: {
@@ -108,15 +99,15 @@ export interface FundraiserFactory extends BaseContract {
   queryFilter<TEvent extends TypedEvent>(
     event: TypedEventFilter<TEvent>,
     fromBlockOrBlockhash?: string | number | undefined,
-    toBlock?: string | number | undefined,
+    toBlock?: string | number | undefined
   ): Promise<Array<TEvent>>;
 
   listeners<TEvent extends TypedEvent>(
-    eventFilter?: TypedEventFilter<TEvent>,
+    eventFilter?: TypedEventFilter<TEvent>
   ): Array<TypedListener<TEvent>>;
   listeners(eventName?: string): Array<Listener>;
   removeAllListeners<TEvent extends TypedEvent>(
-    eventFilter: TypedEventFilter<TEvent>,
+    eventFilter: TypedEventFilter<TEvent>
   ): this;
   removeAllListeners(eventName?: string): this;
   off: OnEvent<this>;
@@ -128,77 +119,77 @@ export interface FundraiserFactory extends BaseContract {
     currentId(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     createFundraiser(
-      name: PromiseOrValue<string>,
-      images: PromiseOrValue<string>[],
-      categories: PromiseOrValue<string>[],
-      description: PromiseOrValue<string>,
-      region: PromiseOrValue<string>,
-      beneficiary: PromiseOrValue<string>,
-      goal: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> },
+      name: string,
+      images: string[],
+      categories: string[],
+      description: string,
+      region: string,
+      beneficiary: string,
+      goal: BigNumberish,
+      overrides?: Overrides & { from?: string }
     ): Promise<ContractTransaction>;
 
     fundraisersCount(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     fundraisers(
-      limit: PromiseOrValue<BigNumberish>,
-      offset: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides,
+      limit: BigNumberish,
+      offset: BigNumberish,
+      overrides?: CallOverrides
     ): Promise<[string[]] & { coll: string[] }>;
   };
 
   currentId(overrides?: CallOverrides): Promise<BigNumber>;
 
   createFundraiser(
-    name: PromiseOrValue<string>,
-    images: PromiseOrValue<string>[],
-    categories: PromiseOrValue<string>[],
-    description: PromiseOrValue<string>,
-    region: PromiseOrValue<string>,
-    beneficiary: PromiseOrValue<string>,
-    goal: PromiseOrValue<BigNumberish>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> },
+    name: string,
+    images: string[],
+    categories: string[],
+    description: string,
+    region: string,
+    beneficiary: string,
+    goal: BigNumberish,
+    overrides?: Overrides & { from?: string }
   ): Promise<ContractTransaction>;
 
   fundraisersCount(overrides?: CallOverrides): Promise<BigNumber>;
 
   fundraisers(
-    limit: PromiseOrValue<BigNumberish>,
-    offset: PromiseOrValue<BigNumberish>,
-    overrides?: CallOverrides,
+    limit: BigNumberish,
+    offset: BigNumberish,
+    overrides?: CallOverrides
   ): Promise<string[]>;
 
   callStatic: {
     currentId(overrides?: CallOverrides): Promise<BigNumber>;
 
     createFundraiser(
-      name: PromiseOrValue<string>,
-      images: PromiseOrValue<string>[],
-      categories: PromiseOrValue<string>[],
-      description: PromiseOrValue<string>,
-      region: PromiseOrValue<string>,
-      beneficiary: PromiseOrValue<string>,
-      goal: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides,
+      name: string,
+      images: string[],
+      categories: string[],
+      description: string,
+      region: string,
+      beneficiary: string,
+      goal: BigNumberish,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     fundraisersCount(overrides?: CallOverrides): Promise<BigNumber>;
 
     fundraisers(
-      limit: PromiseOrValue<BigNumberish>,
-      offset: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides,
+      limit: BigNumberish,
+      offset: BigNumberish,
+      overrides?: CallOverrides
     ): Promise<string[]>;
   };
 
   filters: {
     "FundraiserCreated(address,address)"(
-      fundraiser?: PromiseOrValue<string> | null,
-      owner?: PromiseOrValue<string> | null,
+      fundraiser?: string | null,
+      owner?: string | null
     ): FundraiserCreatedEventFilter;
     FundraiserCreated(
-      fundraiser?: PromiseOrValue<string> | null,
-      owner?: PromiseOrValue<string> | null,
+      fundraiser?: string | null,
+      owner?: string | null
     ): FundraiserCreatedEventFilter;
   };
 
@@ -206,22 +197,22 @@ export interface FundraiserFactory extends BaseContract {
     currentId(overrides?: CallOverrides): Promise<BigNumber>;
 
     createFundraiser(
-      name: PromiseOrValue<string>,
-      images: PromiseOrValue<string>[],
-      categories: PromiseOrValue<string>[],
-      description: PromiseOrValue<string>,
-      region: PromiseOrValue<string>,
-      beneficiary: PromiseOrValue<string>,
-      goal: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> },
+      name: string,
+      images: string[],
+      categories: string[],
+      description: string,
+      region: string,
+      beneficiary: string,
+      goal: BigNumberish,
+      overrides?: Overrides & { from?: string }
     ): Promise<BigNumber>;
 
     fundraisersCount(overrides?: CallOverrides): Promise<BigNumber>;
 
     fundraisers(
-      limit: PromiseOrValue<BigNumberish>,
-      offset: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides,
+      limit: BigNumberish,
+      offset: BigNumberish,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
   };
 
@@ -229,22 +220,22 @@ export interface FundraiserFactory extends BaseContract {
     currentId(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     createFundraiser(
-      name: PromiseOrValue<string>,
-      images: PromiseOrValue<string>[],
-      categories: PromiseOrValue<string>[],
-      description: PromiseOrValue<string>,
-      region: PromiseOrValue<string>,
-      beneficiary: PromiseOrValue<string>,
-      goal: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> },
+      name: string,
+      images: string[],
+      categories: string[],
+      description: string,
+      region: string,
+      beneficiary: string,
+      goal: BigNumberish,
+      overrides?: Overrides & { from?: string }
     ): Promise<PopulatedTransaction>;
 
     fundraisersCount(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     fundraisers(
-      limit: PromiseOrValue<BigNumberish>,
-      offset: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides,
+      limit: BigNumberish,
+      offset: BigNumberish,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
   };
 }
