@@ -44,7 +44,9 @@ import { data } from "@/data/info";
 import NavBar from "@/components/common/NavBar";
 import { AuthContext } from "@/context/AuthContext";
 import MainButton from "@/components/common/MainButton";
-import { ScrollArea } from "@radix-ui/react-scroll-area"
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { BiUpvote } from "react-icons/bi";
+import { BiDownvote } from "react-icons/bi";
 
 const StyledButton = styled.button`
   cursor: pointer;
@@ -118,7 +120,7 @@ function Cause() {
   const [fundraiser, setFundraiser] = useState(null);
   const [fetching, setFetching] = useState(true);
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { fundraisers : fundraiserItems, isLoadingFundraiser, proposals, mediaArchive } = useContext(FundraiserContext);
+  const { fundraisers : fundraiserItems, isLoadingFundraiser, proposals, mediaArchive, upVote, downVote } = useContext(FundraiserContext);
   const pathname = usePathname()
 
   useEffect(() => {
@@ -243,7 +245,7 @@ function Cause() {
 
     GetDonationList(fundraiserAddress as string);
 
-  }, []);
+  }, [fundraiserAddress, getFundRaiserDetails, setLoadDonations]);
 
   const FilAmount = parseFloat(donationValue) / exchangeRate;
 
@@ -367,20 +369,24 @@ function Cause() {
                 </TabList>
                 <TabPanels>
                   <TabPanel>
+                  <ScrollArea className="h-[250px] w-full rounded-md border p-4">
                     {descriptions.map((desc, idx) => (
                       <Text key={idx} pb="1rem" className="text-lg">
                         {desc}
                       </Text>
                     ))}
+                    </ScrollArea>
                   </TabPanel>
                   <TabPanel>
+                  <ScrollArea className="h-[250px] w-full rounded-md border p-4">
                     <VStack>
                       {mediaArchive.length > 0 ? mediaArchive.map((update, idx) => (
-                        <HStack key={idx} className={styles.updateContainer}>
-                          <VStack className={styles.updateDate}>
-                            <Text className={styles.updateDateText}>
+                        <div key={idx} className={`${styles.updateContainer} lg:space-x-3 space-y-3 lg:space-y-0 space-x-0 flex lg:flex-row flex-col`}>
+                          <VStack>
+                            <Image className="rounded-md" width={1000} src={update.url} alt="image" />
+                            {/*<Text className={styles.updateDateText}>
                               {getFormattedDate(Number(update.date))}
-                            </Text>
+                            </Text>*/}
                           </VStack>
                           <VStack className={styles.updateTextContainer}>
                             <Text className={styles.updateTitle}>
@@ -390,15 +396,17 @@ function Cause() {
                               {update.description}
                             </Text>
                           </VStack>
-                        </HStack>
+                        </div>
                       )): (
                         <h1 className="text-center text-xl mt-4 font-bold">
                          No media record found
                       </h1>
                       )}
                     </VStack>
+                  </ScrollArea>
                   </TabPanel>
                   <TabPanel>
+                  <ScrollArea className="h-[250px] w-full rounded-md border p-4">
                     {fundraiser.donors ? (
                       <VStack>
                         <div className="flex lg:flex-row flex-col lg:space-x-2 lg:space-y-0 space-x-0 space-y-2 w-full justify-center items-center">
@@ -439,6 +447,16 @@ function Cause() {
                             <Text className={styles.updateSubtitle}>
                               {proposal.description}
                             </Text>
+                            <HStack>
+                              <HStack className="">
+                                <BiUpvote onClick={() => upVote(fundraiser.address, proposal.id)} className="text-2xl cursor-pointer" />
+                                <Text className="font-semibold">{proposal.upvotes}</Text>
+                              </HStack>
+                              <HStack>
+                                <BiDownvote onClick={() => downVote(fundraiser.address, proposal.id)} className="text-2xl cursor-pointer" />
+                                <Text className="font-semibold">{proposal.upvotes}</Text>
+                              </HStack>
+                            </HStack>
                           </VStack>
                         </HStack>
                       )) : (
@@ -453,6 +471,7 @@ function Cause() {
                         No donation record found
                       </h1>
                     )}
+                    </ScrollArea>
                   </TabPanel>
                 </TabPanels>
               </Tabs>

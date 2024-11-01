@@ -120,6 +120,34 @@ export const useFundraisers = () => {
     }
   };
 
+  const upVote = async (address : string, id: string) => {
+     try {
+      if (!currentAccount) {
+        return;
+      }
+  
+      //const signer = await getProvider();
+      const instance = API.fetchFundraiserContract(address, currentSigner);
+      await instance.vote(Number(id), true, { from: currentAccount })
+     }catch(error){
+      console.log(error)
+     }
+  }
+
+  const downVote = async (address : string, id: string) => {
+    try {
+     if (!currentAccount) {
+       return;
+     }
+ 
+     //const signer = await getProvider();
+     const instance = API.fetchFundraiserContract(address, currentSigner);
+     await instance.vote(Number(id), false, { from: currentAccount })
+    }catch(error){
+     console.log(error)
+    }
+ }
+
   // Create a fundraiser
   const createAFundraiser = async (
     name: string,
@@ -183,6 +211,8 @@ export const useFundraisers = () => {
     currentSigner,
     fundraisersDetails,
     proposals,
-    mediaArchive
+    mediaArchive,
+    upVote,
+    downVote
   };
 };
