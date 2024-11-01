@@ -90,7 +90,7 @@ function Create() {
   }
 
   const createFundraiser = async () => {
-    if (!title || !description || !address || !fileUrl) return;
+    if (!title || !description || !fileUrl) return;
 
     try {
       await createAFundraiser(
@@ -308,17 +308,17 @@ function StepOne({
           ></Input>
           <Text className={styles.inputUnit}>USD</Text>
         </VStack>
-        <VStack className={styles.inputContainer}>
+        {/*<VStack className={styles.inputContainer}>
           <Text className={styles.inputHeader}>Recipient Address</Text>
           <Input
             onChange={handleAddressChange}
             className={styles.input}
           ></Input>
-        </VStack>
+        </VStack>*/}
       </VStack>
       {currentAccount ? (
         <Button
-          disabled={!amount || !address}
+          disabled={!amount}
           className={styles.donateBtn}
           onClick={() => setCurrentStep((prev: any) => prev + 1)}
         >

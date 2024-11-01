@@ -133,7 +133,7 @@ function Explore() {
                               <Box className={`${styles.progressBarContainer}`}>
                                 <Box
                                   style={{
-                                    backgroundColor: "#2d89e6",
+                                    backgroundColor: "#1D1F20",
                                     width: `${(Number(
                                       perc(fundraiser.dollarDonationAmount),
                                     ) > 0
@@ -187,7 +187,7 @@ function Explore() {
                 })}
           </div>
         ) : (
-          <div className="w-full flex max-w-7xl flex-wrap justify-start mt-8 md:justify-center">
+          <div className="w-full flex max-w-7xl space-x-3 flex-wrap justify-start mt-8 md:justify-center">
             {!isLoadingFundraiser
               ? fundraisers.slice(0, 6).map((fundraiser, index) => {
                   return (
@@ -227,7 +227,7 @@ function Explore() {
                             <Box className={`${styles.progressBarContainer}`}>
                               <Box
                                 style={{
-                                  backgroundColor: "#2d89e6",
+                                  backgroundColor: "#1D1F20",
                                   width: `${(Number(
                                     perc(fundraiser.dollarDonationAmount),
                                   ) > 0

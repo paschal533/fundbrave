@@ -190,7 +190,7 @@ export const useFundraisers = () => {
         categories,
         description,
         country,
-        beneficiary,
+        currentAccount,
         goal,
       );
 
