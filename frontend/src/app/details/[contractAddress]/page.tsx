@@ -47,6 +47,7 @@ import MainButton from "@/components/common/MainButton";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { BiUpvote } from "react-icons/bi";
 import { BiDownvote } from "react-icons/bi";
+import { useToast } from "@/hooks/use-toast"
 
 const StyledButton = styled.button`
   cursor: pointer;
@@ -122,6 +123,7 @@ function Cause() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { fundraisers : fundraiserItems, isLoadingFundraiser, proposals, mediaArchive, upVote, downVote } = useContext(FundraiserContext);
   const pathname = usePathname()
+  const { toast } = useToast()
 
   useEffect(() => {
     let isMounted = true;
@@ -266,10 +268,20 @@ function Cause() {
         value: ethers.utils.parseUnits(FilAmount.toString(), 18),
       });
 
+      toast({
+        title: "Success: Donated!",
+        description: `you have successfully donated ${donationValue}`,
+      })
+
       handleDonation(donationValue);
       setSuccessModal(true);
     } catch (error) {
       console.log(error);
+      toast({
+        variant: "destructive",
+        title: "Uh oh! Something went wrong.",
+        description: "There was a problem with your request.",
+      })
       handleNotEnough();
     } finally {
       setSending(false);
@@ -281,7 +293,8 @@ function Cause() {
     setSuccessModal,
     currentSigner,
     FilAmount,
-    fundraiser
+    fundraiser,
+    toast
   ]);
 
   if (fetching) {

@@ -6,6 +6,7 @@ import { FundraiserDetailsItem } from "@/types";
 import * as API from "@/services/api";
 import { filter } from "@chakra-ui/react";
 import { AuthContext } from "@/context/AuthContext";
+import { useToast } from "@/hooks/use-toast"
 
 const useProfile = () => {
   const [isLoadingUserDonations, setIsLoadingUserDonations] = useState(true);
@@ -16,6 +17,7 @@ const useProfile = () => {
   const [donation, setDonations] = useState<any>([]);
   const { currentAccount } = useContext(AuthContext)
   const { currentSigner } = useContext(FundraiserContext);
+  const { toast } = useToast()
 
   useEffect(() => {
     let isMounted = true;
@@ -129,32 +131,68 @@ const useProfile = () => {
         currentAccount,
         currentSigner,
       );
+      toast({
+        title: "Success!",
+        description: "Beneficiary changed",
+      })
     } catch (error) {
       console.log(error);
+      toast({
+        variant: "destructive",
+        title: "Uh oh! Something went wrong.",
+        description: "There was a problem with your request.",
+      })
     }
   };
 
   const withdraw = async (address: string) => {
     try {
       await API.withdraw(address, currentAccount, currentSigner);
+      toast({
+        title: "Success!",
+        description: "Your Funds have been sent to your wallet.",
+      })
     } catch (error) {
       console.log(error);
+      toast({
+        variant: "destructive",
+        title: "Uh oh! Something went wrong.",
+        description: "There was a problem with your request.",
+      })
     }
   };
 
   const createProposal = async (address: string, title: string, description : string) => {
     try {
       await API.createProposal(address, currentAccount, title, description, currentSigner);
+      toast({
+        title: "Success!: Proposal created",
+        description: "Your Propposal has been created.",
+      })
     } catch (error) {
       console.log(error);
+      toast({
+        variant: "destructive",
+        title: "Uh oh! Something went wrong.",
+        description: "There was a problem with your request.",
+      })
     }
   };
 
   const addMediaArchive = async (address: string, title: string, description : string, imgUrl : string) => {
     try {
       await API.addMediaArchive(address, currentAccount, title, description, imgUrl, currentSigner);
+      toast({
+        title: "Success!: Added to media archive",
+        description: "Your request was successful.",
+      })
     } catch (error) {
       console.log(error);
+      toast({
+        variant: "destructive",
+        title: "Uh oh! Something went wrong.",
+        description: "There was a problem with your request.",
+      })
     }
   };
 

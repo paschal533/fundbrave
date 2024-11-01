@@ -7,6 +7,7 @@ import { handleNewFundraiser, handleWithdraw } from "@/services/notifications";
 import { MyDonations } from "@/types";
 import { useEthersSigner } from "./etherSigner";
 import { AuthContext } from "@/context/AuthContext";
+import { useToast } from "@/hooks/use-toast"
 
 export const useFundraisers = () => {
   const [isLoadingFundraiser, setIsLoadingFundraiser] = useState(true);
@@ -22,6 +23,7 @@ export const useFundraisers = () => {
   const { currentAccount } = useContext(AuthContext);
   const [proposals, setProposals] = useState<any[]>([])
   const [mediaArchive, setMediaArchive] = useState<any[]>([])
+  const { toast } = useToast()
   const signer = useEthersSigner()
 
   useEffect(() => {
@@ -129,8 +131,18 @@ export const useFundraisers = () => {
       //const signer = await getProvider();
       const instance = API.fetchFundraiserContract(address, currentSigner);
       await instance.vote(Number(id), true, { from: currentAccount })
+
+      toast({
+        title: "Success: Voted!",
+        description: "You up voted this proposal",
+      })
      }catch(error){
       console.log(error)
+      toast({
+        variant: "destructive",
+        title: "Uh oh! Something went wrong.",
+        description: "You need to donate to the fundraiser before you can vote",
+      })
      }
   }
 
@@ -143,8 +155,17 @@ export const useFundraisers = () => {
      //const signer = await getProvider();
      const instance = API.fetchFundraiserContract(address, currentSigner);
      await instance.vote(Number(id), false, { from: currentAccount })
+     toast({
+      title: "Success: Voted!",
+      description: "You down voted this proposal.",
+    })
     }catch(error){
      console.log(error)
+     toast({
+      variant: "destructive",
+      title: "Uh oh! Something went wrong.",
+      description: "You need to donate to the fundraiser before you can vote.",
+    })
     }
  }
 
@@ -177,8 +198,17 @@ export const useFundraisers = () => {
       await transaction.wait();
       handleNewFundraiser();
       setIsLoadingFundraiser(false);
+      toast({
+        title: "Success: Fundraiser Created!",
+        description: `${name} fundraising campaign has been created successfully.`,
+      })
      }catch(error){
       console.log(error)
+      toast({
+        variant: "destructive",
+        title: "Uh oh! Something went wrong.",
+        description: "There was a problem with your request.",
+      })
      }
   };
 
@@ -192,6 +222,11 @@ export const useFundraisers = () => {
 
     const instance = API.fetchFundraiserContract(address, currentSigner);
     await instance.withdraw({ from: currentAccount });
+
+    toast({
+      title: "Success!",
+      description: `Your Funds have been sent to your wallet`,
+    })
 
     handleWithdraw();
   };
