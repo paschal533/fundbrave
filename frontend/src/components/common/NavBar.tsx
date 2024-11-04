@@ -60,9 +60,9 @@ function NavBar(props?: any) {
         className={`hidden lg:block fixed w-full ${props.name == "browse" ? "border-2 border-[#E3E1E3] bg-white" : ""} animate-in fade-in zoom-in ${isHome && navBg ? "bg-white top-0 scroll-smooth ease-in-out transition-all duration-300" : "bg-transparent"} p-4`}
       >
         <div className="flex justify-between mx-4 items-center">
-          <div>
-            <img src="/images/logo.svg" alt="logo" />
-          </div>
+          <Link href="/">
+            <img src="/images/logo.svg" className="w-[180px]" alt="logo" />
+          </Link>
           <div className="flex gap-[20px] xl:gap-[50px] text-[16px] items-center select-none">
             {links.map((item, index) => (
               <div key={index} className="flex gap-2">
@@ -105,7 +105,7 @@ function NavBar(props?: any) {
       >
         <div className="flex justify-between mx-[10px]">
           <div className="flex gap-[50px] text-[16px] items-center select-none">
-            <img src="/images/logo.svg" alt="logo" />
+            <img src="/images/logo.svg" className="w-[180px]" alt="logo" />
           </div>
           <div className="flex items-center gap-[40px]">
             {menu ? (

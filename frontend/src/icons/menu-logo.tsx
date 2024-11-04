@@ -9,7 +9,7 @@ export const MenuLogo = ({ onClick }: MenuLogoProps) => {
   return (
     <Image
       onClick={onClick}
-      src="/images/logo.svg"
+      src="/images/logo-small.png"
       alt="log"
       width={25}
       height={25}

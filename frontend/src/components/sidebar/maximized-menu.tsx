@@ -22,12 +22,9 @@ const MaxMenu = ({ current, onExpand, onSignOut, user }: Props) => {
             alt="LOGO"
             sizes="100vw"
             className="animate-fade-in delay-300 fill-mode-forwards"
-            width={30}
+            width={180}
             height={30}
           />
-          <h1 className="pointer-events-none z-10 whitespace-pre-wrap bg-gradient-to-b from-[#D7009A] via-[#ff2975] to-[#8c1eff] bg-clip-text text-center ml-1 text-2xl font-bold leading-none text-transparent">
-            FundBrave
-          </h1>
         </Link>
         <Menu
           className="cursor-pointer animate-fade-in delay-300 fill-mode-forwards"
