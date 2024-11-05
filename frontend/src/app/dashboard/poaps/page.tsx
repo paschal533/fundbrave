@@ -28,12 +28,12 @@ const Page = (props: Props) => {
                     No POAP Received
                   </div>) :
                   (<div className="relative w-557 minmd:w-2/3 minmd:h-2/3 sm:w-full sm:h-300 h-557 ">
-                  <Image
+                  <img
                     alt="fundraiser-imageURL"
                     src="https://openseauserdata.com/files/d80e3b549642e88b2154664c574ea334.svg"
-                    objectFit="cover"
+                     
                     className="shadow-lg rounded-xl"
-                    layout="fill"
+                     
                   />
                 </div>)}
                 </div>

@@ -468,7 +468,7 @@ function Cause() {
                               </HStack>
                               <HStack>
                                 <BiDownvote onClick={() => downVote(fundraiser.address, proposal.id)} className="text-2xl cursor-pointer" />
-                                <Text className="font-semibold">{proposal.upvotes}</Text>
+                                <Text className="font-semibold">{proposal.downvotes}</Text>
                               </HStack>
                             </HStack>
                           </VStack>
