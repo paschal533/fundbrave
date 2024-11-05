@@ -47,7 +47,8 @@ import MainButton from "@/components/common/MainButton";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { BiUpvote } from "react-icons/bi";
 import { BiDownvote } from "react-icons/bi";
-import { useToast } from "@/hooks/use-toast"
+import { useToast } from "@/hooks/use-toast";
+import { ethers } from "ethers"
 
 const StyledButton = styled.button`
   cursor: pointer;

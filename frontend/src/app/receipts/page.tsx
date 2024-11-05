@@ -1,6 +1,7 @@
-// @ts-nocheck
+//@ts-nocheck
+"use client"
 import React, { useState, useEffect } from "react";
-import { useRouter } from "next/router";
+import {  useSearchParams  } from "next/navigation";
 import Head from "next/head";
 
 const Receipts = () => {
@@ -9,12 +10,14 @@ const Receipts = () => {
     name: "",
     date: "",
   });
-  const router = useRouter();
+  const searchParams = useSearchParams()
 
   useEffect(() => {
-    if (!router.isReady) return;
+    if (!searchParams) return;
 
-    const { donation, date, fundraiser } = router.query;
+    const donation = searchParams.get('donation')
+    const date = searchParams.get('date')
+    const fundraiser = searchParams.get('fundraiser')
 
     const formattedDate = new Date(parseInt(date) * 1000);
 
@@ -23,7 +26,7 @@ const Receipts = () => {
       name: fundraiser,
       date: formattedDate.toString(),
     });
-  }, [router.isReady, router.query]);
+  }, [searchParams]);
 
   return (
     <div className="dark:text-white text-nft-black-1 h-[80vh] mb-[100px] md:ml-0 ml-3 flex  mt-[-100px] flex-col items-center justify-center py-2">

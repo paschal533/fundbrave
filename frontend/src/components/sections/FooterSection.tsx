@@ -20,7 +20,7 @@ function FooterSection() {
   return (
     <section className="bg-[#232529] px-4 md:px-[94px] py-[90px]">
       <div>
-        <img src="/images/footer_logo.svg" alt="footer logo" />
+        <img className="h-[50px]" src="/images/footer_logo.png" alt="footer logo" />
       </div>
 
       <div className="mt-[32px] pb-[50px] flex justify-between w-full gap-8 flex-col md:flex-row flex-wrap">
