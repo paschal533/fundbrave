@@ -134,11 +134,13 @@ function NavBar(props?: any) {
             <div className="flex flex-col gap-8 mt-8 mx-4">
               {links.map((item, index) => (
                 <div key={index} className="flex gap-2">
+                  <Link href={item.route}>
                   <p
                     className={`hover:text-primary cursor-pointer flex items-center gap-2  font-[500] text-gray`}
                   >
                     {item.name}
                   </p>
+                  </Link>
                   {item.badgeCount ? (
                     <div className="h-8 w-8 rounded-full bg-primary flex justify-center items-center  font-semibold text-white">
                       {item.badgeCount}

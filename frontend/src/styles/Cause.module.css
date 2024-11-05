@@ -140,7 +140,7 @@
 @media screen and (max-width: 600px) {
   .donateContainer {
     margin-top: 20px;
-    max-width: 400px !important;
+    max-width: 360px !important;
     padding: 2rem;
     background: #ffffff;
     box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.1);
