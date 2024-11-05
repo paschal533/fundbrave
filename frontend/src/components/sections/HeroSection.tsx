@@ -25,7 +25,7 @@ function HeroSection() {
           transparent funding.
         </p>
 
-        <div className="flex gap-[12px] justify-center">
+        <div className="flex flex-wrap w-full items-center lg:flex-row flex-col gap-[12px] justify-center">
           <Link href="/explore">
             <MainButton
               text="Fund a Project"
@@ -38,6 +38,7 @@ function HeroSection() {
             <MainButton
               text="Explore Media Archive"
               size="normal"
+              width="120px"
               className="rounded-[12px] border-[1px] border-[#EDEEF0] bg-white hover:bg-white text-[#31373D]"
             />
           </Link>

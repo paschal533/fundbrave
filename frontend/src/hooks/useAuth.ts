@@ -43,11 +43,11 @@ const useAuth = () => {
       switchChain && switchChain(chains[0].id);
     }
     if (address?.length === undefined) {
-      toast({
+      /*toast({
         variant: "destructive",
         title: "Uh oh! Something went wrong.",
         description: "Your wallet is not connect to the Dapp.",
-      });
+      });*/
       handleNewNotification();
     } else {
       toast({
