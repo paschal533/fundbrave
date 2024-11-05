@@ -7,7 +7,7 @@ import { handleNewFundraiser, handleWithdraw } from "@/services/notifications";
 import { MyDonations } from "@/types";
 import { useEthersSigner } from "./etherSigner";
 import { AuthContext } from "@/context/AuthContext";
-import { useToast } from "@/hooks/use-toast"
+import { useToast } from "@/hooks/use-toast";
 
 export const useFundraisers = () => {
   const [isLoadingFundraiser, setIsLoadingFundraiser] = useState(true);
@@ -21,10 +21,10 @@ export const useFundraisers = () => {
   >([]);
   const [loadDonations, setLoadDonations] = useState(true);
   const { currentAccount } = useContext(AuthContext);
-  const [proposals, setProposals] = useState<any[]>([])
-  const [mediaArchive, setMediaArchive] = useState<any[]>([])
-  const { toast } = useToast()
-  const signer = useEthersSigner()
+  const [proposals, setProposals] = useState<any[]>([]);
+  const [mediaArchive, setMediaArchive] = useState<any[]>([]);
+  const { toast } = useToast();
+  const signer = useEthersSigner();
 
   useEffect(() => {
     let isMounted = true;
@@ -53,13 +53,12 @@ export const useFundraisers = () => {
 
   useEffect(() => {
     const fetchFundraisers = async () => {
-       try {
+      try {
         const items = await API.fetchFundraisers();
         setFundraisersDetails(items);
-
-       }catch(error){
-        console.log(error)
-       }
+      } catch (error) {
+        console.log(error);
+      }
     };
 
     fetchFundraisers();
@@ -87,25 +86,25 @@ export const useFundraisers = () => {
 
       const proposals = await instance.getProposals();
       const formattedProposals = proposals.map((proposal) => ({
-          id: proposal[0].toString(),
-          title: proposal[1],
-          description: proposal[2],
-          date: proposal[3].toString(),
-          upvotes: proposal[4].toString(),
-          downvotes: proposal[5].toString()
+        id: proposal[0].toString(),
+        title: proposal[1],
+        description: proposal[2],
+        date: proposal[3].toString(),
+        upvotes: proposal[4].toString(),
+        downvotes: proposal[5].toString(),
       }));
-      setProposals(formattedProposals)
+      setProposals(formattedProposals);
 
       const mediaArchives = await instance.getMediaArchive();
-        const formattedMediaArchives = mediaArchives.map((mediaArchive) => ({
-          id: mediaArchive[0].toString(),
-          title: mediaArchive[1],
-          description: mediaArchive[2],
-          url: mediaArchive[3],
-          date: mediaArchive[4].toString(),
-        }));
+      const formattedMediaArchives = mediaArchives.map((mediaArchive) => ({
+        id: mediaArchive[0].toString(),
+        title: mediaArchive[1],
+        description: mediaArchive[2],
+        url: mediaArchive[3],
+        date: mediaArchive[4].toString(),
+      }));
 
-      setMediaArchive(formattedMediaArchives)
+      setMediaArchive(formattedMediaArchives);
 
       const isOwner = await instance.connect(currentSigner).owner();
 
@@ -122,52 +121,53 @@ export const useFundraisers = () => {
     }
   };
 
-  const upVote = async (address : string, id: string) => {
-     try {
+  const upVote = async (address: string, id: string) => {
+    try {
       if (!currentAccount) {
         return;
       }
-  
+
       //const signer = await getProvider();
       const instance = API.fetchFundraiserContract(address, currentSigner);
-      await instance.vote(Number(id), true, { from: currentAccount })
+      await instance.vote(Number(id), true, { from: currentAccount });
 
       toast({
         title: "Success: Voted!",
         description: "You up voted this proposal",
-      })
-     }catch(error){
-      console.log(error)
+      });
+    } catch (error) {
+      console.log(error);
       toast({
         variant: "destructive",
         title: "Uh oh! Something went wrong.",
         description: "You need to donate to the fundraiser before you can vote",
-      })
-     }
-  }
-
-  const downVote = async (address : string, id: string) => {
-    try {
-     if (!currentAccount) {
-       return;
-     }
- 
-     //const signer = await getProvider();
-     const instance = API.fetchFundraiserContract(address, currentSigner);
-     await instance.vote(Number(id), false, { from: currentAccount })
-     toast({
-      title: "Success: Voted!",
-      description: "You down voted this proposal.",
-    })
-    }catch(error){
-     console.log(error)
-     toast({
-      variant: "destructive",
-      title: "Uh oh! Something went wrong.",
-      description: "You need to donate to the fundraiser before you can vote.",
-    })
+      });
     }
- }
+  };
+
+  const downVote = async (address: string, id: string) => {
+    try {
+      if (!currentAccount) {
+        return;
+      }
+
+      //const signer = await getProvider();
+      const instance = API.fetchFundraiserContract(address, currentSigner);
+      await instance.vote(Number(id), false, { from: currentAccount });
+      toast({
+        title: "Success: Voted!",
+        description: "You down voted this proposal.",
+      });
+    } catch (error) {
+      console.log(error);
+      toast({
+        variant: "destructive",
+        title: "Uh oh! Something went wrong.",
+        description:
+          "You need to donate to the fundraiser before you can vote.",
+      });
+    }
+  };
 
   // Create a fundraiser
   const createAFundraiser = async (
@@ -177,11 +177,11 @@ export const useFundraisers = () => {
     description: string,
     country: string,
     beneficiary: Address,
-    goal: number,
+    goal: number
   ) => {
     //const signer = await getProvider();
 
-     try {
+    try {
       const contract = API.fetchContract(currentSigner);
 
       const transaction = await contract.createFundraiser(
@@ -191,7 +191,7 @@ export const useFundraisers = () => {
         description,
         country,
         currentAccount,
-        goal,
+        goal
       );
 
       setIsLoadingFundraiser(true);
@@ -201,15 +201,15 @@ export const useFundraisers = () => {
       toast({
         title: "Success: Fundraiser Created!",
         description: `${name} fundraising campaign has been created successfully.`,
-      })
-     }catch(error){
-      console.log(error)
+      });
+    } catch (error) {
+      console.log(error);
       toast({
         variant: "destructive",
         title: "Uh oh! Something went wrong.",
         description: "There was a problem with your request.",
-      })
-     }
+      });
+    }
   };
 
   // withdraw funds
@@ -226,7 +226,7 @@ export const useFundraisers = () => {
     toast({
       title: "Success!",
       description: `Your Funds have been sent to your wallet`,
-    })
+    });
 
     handleWithdraw();
   };
@@ -248,6 +248,6 @@ export const useFundraisers = () => {
     proposals,
     mediaArchive,
     upVote,
-    downVote
+    downVote,
   };
 };

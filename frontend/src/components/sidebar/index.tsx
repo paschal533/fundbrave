@@ -28,7 +28,7 @@ const SideBar = ({ user }: any) => {
         expand == undefined && "",
         expand == true
           ? "animate-open-sidebar !w-[250px]"
-          : expand == false && "animate-close-sidebar",
+          : expand == false && "animate-close-sidebar"
       )}
     >
       {expand ? (

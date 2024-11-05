@@ -1,7 +1,7 @@
 //@ts-nocheck
-"use client"
+"use client";
 import React, { useState, useEffect } from "react";
-import {  useSearchParams  } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import Head from "next/head";
 
 const Receipts = () => {
@@ -10,14 +10,14 @@ const Receipts = () => {
     name: "",
     date: "",
   });
-  const searchParams = useSearchParams()
+  const searchParams = useSearchParams();
 
   useEffect(() => {
     if (!searchParams) return;
 
-    const donation = searchParams.get('donation')
-    const date = searchParams.get('date')
-    const fundraiser = searchParams.get('fundraiser')
+    const donation = searchParams.get("donation");
+    const date = searchParams.get("date");
+    const fundraiser = searchParams.get("fundraiser");
 
     const formattedDate = new Date(parseInt(date) * 1000);
 

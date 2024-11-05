@@ -15,23 +15,24 @@ import {
 } from "@/types";
 
 export const fetchContract = (
-  signerOrProvider: ethers.Signer | ethers.providers.Provider,
-) => FundraiserFactory__factory.connect(
+  signerOrProvider: ethers.Signer | ethers.providers.Provider
+) =>
+  FundraiserFactory__factory.connect(
     FundraiserFactoryAddress,
-    signerOrProvider,
+    signerOrProvider
   );
 
 export const fetchFundraiserContract = (
   fundraiserAddress: string,
-  signerOrProvider: ethers.Signer | ethers.providers.Provider,
+  signerOrProvider: ethers.Signer | ethers.providers.Provider
 ) => Fundraiser__factory.connect(fundraiserAddress, signerOrProvider);
 
 export const fetchFundraisers = async (
   limit = 10,
-  offset = 0,
+  offset = 0
 ): Promise<FundraiserItem[]> => {
   const provider = new providers.JsonRpcProvider(
-    `https://api.calibration.node.glif.io/rpc/v1`,
+    `https://api.calibration.node.glif.io/rpc/v1`
   );
 
   const contract = fetchContract(provider);
@@ -54,7 +55,7 @@ export const fetchFundraisers = async (
       const res = await Promise.all(
         dates.map(async (item) => {
           return item.toString();
-        }),
+        })
       );
       const count = await instance.donationsCount();
       const donationCount = count.toString();
@@ -80,7 +81,7 @@ export const fetchFundraisers = async (
         donationCount,
         address: item,
       };
-    }),
+    })
   );
   // @ts-ignore TODO: fix typescript error
   return items;
@@ -89,10 +90,10 @@ export const fetchFundraisers = async (
 export const fetchFundraisersDetails = async (
   limit: number,
   offset: number,
-  currentAccount: Address,
+  currentAccount: Address
 ): Promise<FundraiserUserItem[]> => {
   const provider = new providers.JsonRpcProvider(
-    `https://api.calibration.node.glif.io/rpc/v1`,
+    `https://api.calibration.node.glif.io/rpc/v1`
   );
 
   const contract = fetchContract(provider);
@@ -121,7 +122,7 @@ export const fetchFundraisersDetails = async (
         address: item,
         userDonations: normalizedDonations,
       };
-    }),
+    })
   );
 
   // @ts-ignore TODO: fix typescript error
@@ -131,10 +132,10 @@ export const fetchFundraisersDetails = async (
 export const fetchFundraiserCampaigns = async (
   limit: number,
   offset: number,
-  currentAccount: Address,
+  currentAccount: Address
 ): Promise<FundraiserDetailsItem[]> => {
   const provider = new providers.JsonRpcProvider(
-    `https://api.calibration.node.glif.io/rpc/v1`,
+    `https://api.calibration.node.glif.io/rpc/v1`
   );
 
   const contract = fetchContract(provider);
@@ -160,7 +161,7 @@ export const fetchFundraiserCampaigns = async (
         address: item,
         Owner,
       };
-    }),
+    })
   );
 
   // @ts-ignore TODO: fix typescript error
@@ -239,7 +240,7 @@ export const setBeneficiary = async (
   beneficiary: string,
   address: string,
   currentAccount: string,
-  signer: any,
+  signer: any
 ) => {
   if (!currentAccount) {
     return;
@@ -254,7 +255,7 @@ export const setBeneficiary = async (
 export const withdraw = async (
   address: string,
   currentAccount: string,
-  signer: any,
+  signer: any
 ) => {
   if (!currentAccount) {
     return;
@@ -271,7 +272,7 @@ export const createProposal = async (
   currentAccount: string,
   title: string,
   description: string,
-  signer: any,
+  signer: any
 ) => {
   if (!currentAccount) {
     return;
@@ -289,15 +290,16 @@ export const addMediaArchive = async (
   title: string,
   description: string,
   imgUrl: string,
-  signer: any,
+  signer: any
 ) => {
   if (!currentAccount) {
     return;
   }
-  
+
   const instance = fetchFundraiserContract(address, signer);
-  await instance.createMediaArchive(title, description, imgUrl, { from: currentAccount });
+  await instance.createMediaArchive(title, description, imgUrl, {
+    from: currentAccount,
+  });
 
   handleWithdraw();
 };
-

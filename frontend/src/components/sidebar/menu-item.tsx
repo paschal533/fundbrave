@@ -22,8 +22,8 @@ const MenuItem = ({ size, path, icon, label, current, onSignOut }: Props) => {
             !current
               ? "text-gray-500"
               : `dashboard/${current}` == path
-                ? "bg-white shadow-lg font-bold text-black"
-                : "text-gray-500",
+              ? "bg-white shadow-lg font-bold text-black"
+              : "text-gray-500"
           )}
           href={path ? `/${path}` : "#"}
         >
@@ -38,9 +38,9 @@ const MenuItem = ({ size, path, icon, label, current, onSignOut }: Props) => {
             !current
               ? "text-gray-500"
               : current == path
-                ? "bg-white shadow-lg font-bold text-black flex place-content-center align-middle justify-center items-center w-full"
-                : "text-gray-500",
-            "rounded-lg py-2 flex place-content-center align-middle justify-center items-center w-full my-1",
+              ? "bg-white shadow-lg font-bold text-black flex place-content-center align-middle justify-center items-center w-full"
+              : "text-gray-500",
+            "rounded-lg py-2 flex place-content-center align-middle justify-center items-center w-full my-1"
           )}
           href={path ? `/${path}` : "#"}
         >

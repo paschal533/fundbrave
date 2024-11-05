@@ -39,16 +39,16 @@ const MainButton = forwardRef<HTMLButtonElement, MainButtonProps>(
       iconComponent,
       size = "normal",
     },
-    ref,
+    ref
   ) => {
     const propWidth =
       width === "full_width"
         ? "w-full"
         : width
-          ? width === "contain"
-            ? ""
-            : "w-[245px]"
-          : "";
+        ? width === "contain"
+          ? ""
+          : "w-[245px]"
+        : "";
 
     const isSecondaryVariant = variant !== "primary";
 
@@ -56,8 +56,8 @@ const MainButton = forwardRef<HTMLButtonElement, MainButtonProps>(
       size === "normal"
         ? "h-[3.1215rem]"
         : size === "large"
-          ? "h-[3.75rem]"
-          : "h-[2.625rem]";
+        ? "h-[3.75rem]"
+        : "h-[2.625rem]";
 
     const variant_hover =
       variant === "primary" ? "hover:bg-primary" : "hover:bg-secondary";
@@ -105,7 +105,7 @@ const MainButton = forwardRef<HTMLButtonElement, MainButtonProps>(
         {dataLoadingText}
       </Button>
     );
-  },
+  }
 );
 
 // Assigned display name

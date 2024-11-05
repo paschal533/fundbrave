@@ -33,7 +33,7 @@ export default function AnimatedBorderTrail({
       {...props}
       className={cn(
         "relative overflow-hidden rounded-2xl bg-gray-200 p-px",
-        className,
+        className
       )}
     >
       <div
@@ -50,7 +50,7 @@ export default function AnimatedBorderTrail({
       <div
         className={cn(
           "relative  overflow-hidden rounded-[15px] bg-white",
-          contentClassName,
+          contentClassName
         )}
       >
         {children}

@@ -14,7 +14,7 @@ function HeroSection() {
         <div
           className={cn(
             gilroyBold.className,
-            "text-4xl md:text-[92px] text-center text-primary md:leading-[5.5rem] my-8",
+            "text-4xl md:text-[92px] text-center text-primary md:leading-[5.5rem] my-8"
           )}
         >
           Together <br /> We Create and Empower.

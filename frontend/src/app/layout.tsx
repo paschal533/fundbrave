@@ -7,7 +7,7 @@ import { ToastContainer } from "@/services/toast";
 import { ProfileProvider } from "@/context/ProfileContext";
 import { AuthProvider } from "@/context/AuthContext";
 import { ChakraProvider } from "@chakra-ui/react";
-import { Toaster } from "@/components/ui/toaster"
+import { Toaster } from "@/components/ui/toaster";
 
 export const metadata: Metadata = {
   title: "FundBrave",
@@ -30,11 +30,11 @@ export default function RootLayout({
       <Providers>
         <ChakraProvider>
           <AuthProvider>
-          <FundraiserProvider>
-            <ProfileProvider>
-              <body className={inter.className}>{children}</body>
-            </ProfileProvider>
-          </FundraiserProvider>
+            <FundraiserProvider>
+              <ProfileProvider>
+                <body className={inter.className}>{children}</body>
+              </ProfileProvider>
+            </FundraiserProvider>
           </AuthProvider>
         </ChakraProvider>
         <Toaster />

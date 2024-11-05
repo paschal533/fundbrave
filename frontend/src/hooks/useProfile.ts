@@ -6,7 +6,7 @@ import { FundraiserDetailsItem } from "@/types";
 import * as API from "@/services/api";
 import { filter } from "@chakra-ui/react";
 import { AuthContext } from "@/context/AuthContext";
-import { useToast } from "@/hooks/use-toast"
+import { useToast } from "@/hooks/use-toast";
 
 const useProfile = () => {
   const [isLoadingUserDonations, setIsLoadingUserDonations] = useState(true);
@@ -15,9 +15,9 @@ const useProfile = () => {
   const [totalDonations, setTotalDonations] = useState("");
   const [UserCampaigns, setUserCampaigns] = useState([]);
   const [donation, setDonations] = useState<any>([]);
-  const { currentAccount } = useContext(AuthContext)
+  const { currentAccount } = useContext(AuthContext);
   const { currentSigner } = useContext(FundraiserContext);
-  const { toast } = useToast()
+  const { toast } = useToast();
 
   useEffect(() => {
     let isMounted = true;
@@ -25,10 +25,14 @@ const useProfile = () => {
       try {
         if (currentAccount) {
           setIsLoadingUserDonations(true);
-          const items = await API.fetchFundraisersDetails(10, 0, currentAccount);
-  
+          const items = await API.fetchFundraisersDetails(
+            10,
+            0,
+            currentAccount
+          );
+
           setDonations(items);
-  
+
           if (!isMounted) return;
           // @ts-ignore TODO: fix typescript error
           const datas = await Promise.all(
@@ -36,26 +40,30 @@ const useProfile = () => {
               const res =
                 userDonations?.length > 0
                   ? await Promise.all(
-                      userDonations.map(async ({ donationAmount, date }: any) => {
-                        return {
-                          name,
-                          donationAmount,
-                          date,
-                        };
-                      }),
+                      userDonations.map(
+                        async ({ donationAmount, date }: any) => {
+                          return {
+                            name,
+                            donationAmount,
+                            date,
+                          };
+                        }
+                      )
                     )
                   : null;
               return res;
-            }),
+            })
           );
-  
+
           const result = datas.flat(1);
           const filterResult = result.filter((a) => a !== null);
-          setmyDonations(filterResult.filter((a) => a.donationAmount !== "0.00"));
+          setmyDonations(
+            filterResult.filter((a) => a.donationAmount !== "0.00")
+          );
           setIsLoadingUserDonations(false);
         }
-      }catch(error){
-        console.log(error)
+      } catch (error) {
+        console.log(error);
       }
     };
 
@@ -88,7 +96,7 @@ const useProfile = () => {
               isOwner,
               dollarDonationAmount,
             };
-          }),
+          })
         );
 
         //@ts-ignore
@@ -108,7 +116,7 @@ const useProfile = () => {
     const items = await Promise.all(
       donation.map(async (item: any) => {
         return item.userDonations;
-      }),
+      })
     );
 
     const donations: any[] = [];
@@ -119,7 +127,7 @@ const useProfile = () => {
     });
 
     setTotalDonations(
-      donations.reduce((a, b) => Number(a) + Number(b), 0).toFixed(2),
+      donations.reduce((a, b) => Number(a) + Number(b), 0).toFixed(2)
     );
   };
 
@@ -129,19 +137,19 @@ const useProfile = () => {
         beneficiary,
         address,
         currentAccount,
-        currentSigner,
+        currentSigner
       );
       toast({
         title: "Success!",
         description: "Beneficiary changed",
-      })
+      });
     } catch (error) {
       console.log(error);
       toast({
         variant: "destructive",
         title: "Uh oh! Something went wrong.",
         description: "There was a problem with your request.",
-      })
+      });
     }
   };
 
@@ -151,48 +159,70 @@ const useProfile = () => {
       toast({
         title: "Success!",
         description: "Your Funds have been sent to your wallet.",
-      })
+      });
     } catch (error) {
       console.log(error);
       toast({
         variant: "destructive",
         title: "Uh oh! Something went wrong.",
         description: "There was a problem with your request.",
-      })
+      });
     }
   };
 
-  const createProposal = async (address: string, title: string, description : string) => {
+  const createProposal = async (
+    address: string,
+    title: string,
+    description: string
+  ) => {
     try {
-      await API.createProposal(address, currentAccount, title, description, currentSigner);
+      await API.createProposal(
+        address,
+        currentAccount,
+        title,
+        description,
+        currentSigner
+      );
       toast({
         title: "Success!: Proposal created",
         description: "Your Propposal has been created.",
-      })
+      });
     } catch (error) {
       console.log(error);
       toast({
         variant: "destructive",
         title: "Uh oh! Something went wrong.",
         description: "There was a problem with your request.",
-      })
+      });
     }
   };
 
-  const addMediaArchive = async (address: string, title: string, description : string, imgUrl : string) => {
+  const addMediaArchive = async (
+    address: string,
+    title: string,
+    description: string,
+    imgUrl: string
+  ) => {
     try {
-      await API.addMediaArchive(address, currentAccount, title, description, imgUrl, currentSigner);
+      await API.addMediaArchive(
+        address,
+        currentAccount,
+        title,
+        description,
+        imgUrl,
+        currentSigner
+      );
       toast({
         title: "Success!: Added to media archive",
         description: "Your request was successful.",
-      })
+      });
     } catch (error) {
       console.log(error);
       toast({
         variant: "destructive",
         title: "Uh oh! Something went wrong.",
         description: "There was a problem with your request.",
-      })
+      });
     }
   };
 
@@ -207,7 +237,7 @@ const useProfile = () => {
     withdraw,
     currentAccount,
     createProposal,
-    addMediaArchive
+    addMediaArchive,
   };
 };
 

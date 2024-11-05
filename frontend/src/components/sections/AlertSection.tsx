@@ -11,7 +11,7 @@ function AlertSection() {
     <div
       className={cn(
         "bg-primary mx-4  flex justify-between p-[12px] rounded-[12px]",
-        showAlert ? "mt-4" : "",
+        showAlert ? "mt-4" : ""
       )}
     >
       <div />

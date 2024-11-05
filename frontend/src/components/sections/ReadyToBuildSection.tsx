@@ -10,7 +10,7 @@ function ReadyToBuildSection() {
         <p
           className={cn(
             gilroyBold.className,
-            "text-[40px] leading-tight md:leading-normal text-[#A0BFF8]",
+            "text-[40px] leading-tight md:leading-normal text-[#A0BFF8]"
           )}
         >
           Ready to build your team&apos;s{" "}

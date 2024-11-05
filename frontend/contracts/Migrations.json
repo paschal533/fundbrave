@@ -937,9 +937,7 @@
   "ast": {
     "absolutePath": "project:/contracts/Migrations.sol",
     "exportedSymbols": {
-      "Migrations": [
-        1000
-      ]
+      "Migrations": [1000]
     },
     "id": 1001,
     "license": "MIT",
@@ -947,12 +945,7 @@
     "nodes": [
       {
         "id": 965,
-        "literals": [
-          "solidity",
-          "^",
-          "0.8",
-          ".0"
-        ],
+        "literals": ["solidity", "^", "0.8", ".0"],
         "nodeType": "PragmaDirective",
         "src": "33:23:3"
       },
@@ -963,9 +956,7 @@
         "contractKind": "contract",
         "fullyImplemented": true,
         "id": 1000,
-        "linearizedBaseContracts": [
-          1000
-        ],
+        "linearizedBaseContracts": [1000],
         "name": "Migrations",
         "nodeType": "ContractDefinition",
         "nodes": [

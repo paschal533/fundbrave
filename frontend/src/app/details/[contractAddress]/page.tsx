@@ -48,7 +48,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { BiUpvote } from "react-icons/bi";
 import { BiDownvote } from "react-icons/bi";
 import { useToast } from "@/hooks/use-toast";
-import { ethers } from "ethers"
+import { ethers } from "ethers";
 
 const StyledButton = styled.button`
   cursor: pointer;
@@ -56,7 +56,7 @@ const StyledButton = styled.button`
   display: inline-block;
   padding: 14px 24px;
   color: #ffffff;
-  background: #1D1F20;
+  background: #1d1f20;
   width: 350px;
   font-size: 16px;
   font-weight: 500;
@@ -122,9 +122,16 @@ function Cause() {
   const [fundraiser, setFundraiser] = useState(null);
   const [fetching, setFetching] = useState(true);
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { fundraisers : fundraiserItems, isLoadingFundraiser, proposals, mediaArchive, upVote, downVote } = useContext(FundraiserContext);
-  const pathname = usePathname()
-  const { toast } = useToast()
+  const {
+    fundraisers: fundraiserItems,
+    isLoadingFundraiser,
+    proposals,
+    mediaArchive,
+    upVote,
+    downVote,
+  } = useContext(FundraiserContext);
+  const pathname = usePathname();
+  const { toast } = useToast();
 
   useEffect(() => {
     let isMounted = true;
@@ -173,19 +180,19 @@ function Cause() {
   useEffect(() => {
     const fetchDetails = async () => {
       try {
-         if(fundraiserItems.length > 0){
+        if (fundraiserItems.length > 0) {
           setFetching(true);
           const items = fundraiserItems;
-          const res = items.filter((a : any) => a.address === fundraiserAddress);
+          const res = items.filter((a: any) => a.address === fundraiserAddress);
           //@ts-ignore
           setFundraiser(res[0]);
-         }else {
+        } else {
           setFetching(true);
           const items = await API.fetchFundraisers();
-          const res = items.filter((a : any) => a.address === fundraiserAddress);
+          const res = items.filter((a: any) => a.address === fundraiserAddress);
           //@ts-ignore
           setFundraiser(res[0]);
-         }
+        }
       } catch (error) {
         console.log(error);
       } finally {
@@ -247,7 +254,6 @@ function Cause() {
     };
 
     GetDonationList(fundraiserAddress as string);
-
   }, [fundraiserAddress, getFundRaiserDetails, setLoadDonations]);
 
   const FilAmount = parseFloat(donationValue) / exchangeRate;
@@ -272,7 +278,7 @@ function Cause() {
       toast({
         title: "Success: Donated!",
         description: `you have successfully donated ${donationValue}`,
-      })
+      });
 
       handleDonation(donationValue);
       setSuccessModal(true);
@@ -282,7 +288,7 @@ function Cause() {
         variant: "destructive",
         title: "Uh oh! Something went wrong.",
         description: "There was a problem with your request.",
-      })
+      });
       handleNotEnough();
     } finally {
       setSending(false);
@@ -295,7 +301,7 @@ function Cause() {
     currentSigner,
     FilAmount,
     fundraiser,
-    toast
+    toast,
   ]);
 
   if (fetching) {
@@ -383,108 +389,142 @@ function Cause() {
                 </TabList>
                 <TabPanels>
                   <TabPanel>
-                  <ScrollArea className="h-[250px] w-full rounded-md border p-4">
-                    {descriptions.map((desc, idx) => (
-                      <Text key={idx} pb="1rem" className="text-lg">
-                        {desc}
-                      </Text>
-                    ))}
+                    <ScrollArea className="h-[250px] w-full rounded-md border p-4">
+                      {descriptions.map((desc, idx) => (
+                        <Text key={idx} pb="1rem" className="text-lg">
+                          {desc}
+                        </Text>
+                      ))}
                     </ScrollArea>
                   </TabPanel>
                   <TabPanel>
-                  <ScrollArea className="h-[250px] w-full rounded-md border p-4">
-                    <VStack>
-                      {mediaArchive.length > 0 ? mediaArchive.map((update, idx) => (
-                        <div key={idx} className={`${styles.updateContainer} lg:space-x-3 space-y-3 lg:space-y-0 space-x-0 flex lg:flex-row flex-col`}>
-                          <VStack>
-                            <Image className="rounded-md" width={1000} src={update.url} alt="image" />
-                            {/*<Text className={styles.updateDateText}>
+                    <ScrollArea className="h-[250px] w-full rounded-md border p-4">
+                      <VStack>
+                        {mediaArchive.length > 0 ? (
+                          mediaArchive.map((update, idx) => (
+                            <div
+                              key={idx}
+                              className={`${styles.updateContainer} lg:space-x-3 space-y-3 lg:space-y-0 space-x-0 flex lg:flex-row flex-col`}
+                            >
+                              <VStack>
+                                <Image
+                                  className="rounded-md"
+                                  width={1000}
+                                  src={update.url}
+                                  alt="image"
+                                />
+                                {/*<Text className={styles.updateDateText}>
                               {getFormattedDate(Number(update.date))}
                             </Text>*/}
-                          </VStack>
-                          <VStack className={styles.updateTextContainer}>
-                            <Text className={styles.updateTitle}>
-                              {update.title}
-                            </Text>
-                            <Text className={styles.updateSubtitle}>
-                              {update.description}
-                            </Text>
-                          </VStack>
-                        </div>
-                      )): (
-                        <h1 className="text-center text-xl mt-4 font-bold">
-                         No media record found
-                      </h1>
-                      )}
-                    </VStack>
-                  </ScrollArea>
+                              </VStack>
+                              <VStack className={styles.updateTextContainer}>
+                                <Text className={styles.updateTitle}>
+                                  {update.title}
+                                </Text>
+                                <Text className={styles.updateSubtitle}>
+                                  {update.description}
+                                </Text>
+                              </VStack>
+                            </div>
+                          ))
+                        ) : (
+                          <h1 className="text-center text-xl mt-4 font-bold">
+                            No media record found
+                          </h1>
+                        )}
+                      </VStack>
+                    </ScrollArea>
                   </TabPanel>
                   <TabPanel>
-                  <ScrollArea className="h-[250px] w-full rounded-md border p-4">
-                    {fundraiser.donors ? (
-                      <VStack>
-                        <div className="flex lg:flex-row flex-col lg:space-x-2 lg:space-y-0 space-x-0 space-y-2 w-full justify-center items-center">
-                          <VStack
-                            className={`${styles.donationHeader} sm:mb-2 mb-0 mr-2 sm:mr-0`}
-                          >
-                            <Text className={styles.donationHeaderTitle}>
-                              {Number(fundraiser.dollarDonationAmount).toFixed(
-                                3,
-                              )}{" "}
-                              USD
-                            </Text>
-                            <Text className={styles.donationHeaderSubtitle}>
-                              Total donation amount
-                            </Text>
-                          </VStack>
-                          <VStack className={styles.donationHeader}>
-                            <Text className={styles.donationHeaderTitle}>
-                              {fundraiser.donationCount}
-                            </Text>
-                            <Text className={styles.donationHeaderSubtitle}>
-                              Donations
-                            </Text>
-                          </VStack>
-                        </div>
+                    <ScrollArea className="h-[250px] w-full rounded-md border p-4">
+                      {fundraiser.donors ? (
+                        <VStack>
+                          <div className="flex lg:flex-row flex-col lg:space-x-2 lg:space-y-0 space-x-0 space-y-2 w-full justify-center items-center">
+                            <VStack
+                              className={`${styles.donationHeader} sm:mb-2 mb-0 mr-2 sm:mr-0`}
+                            >
+                              <Text className={styles.donationHeaderTitle}>
+                                {Number(
+                                  fundraiser.dollarDonationAmount
+                                ).toFixed(3)}{" "}
+                                USD
+                              </Text>
+                              <Text className={styles.donationHeaderSubtitle}>
+                                Total donation amount
+                              </Text>
+                            </VStack>
+                            <VStack className={styles.donationHeader}>
+                              <Text className={styles.donationHeaderTitle}>
+                                {fundraiser.donationCount}
+                              </Text>
+                              <Text className={styles.donationHeaderSubtitle}>
+                                Donations
+                              </Text>
+                            </VStack>
+                          </div>
 
-                        {proposals.length > 0 ? proposals.map((proposal, idx) => (
-                        <HStack key={idx} className={styles.updateContainer}>
-                          <VStack className={styles.updateDate}>
-                            <Text className={styles.updateDateText}>
-                              {getFormattedDate(Number(proposal.date))}
-                            </Text>
-                          </VStack>
-                          <VStack className={styles.updateTextContainer}>
-                            <Text className={styles.updateTitle}>
-                              {proposal.title}
-                            </Text>
-                            <Text className={styles.updateSubtitle}>
-                              {proposal.description}
-                            </Text>
-                            <HStack>
-                              <HStack className="">
-                                <BiUpvote onClick={() => upVote(fundraiser.address, proposal.id)} className="text-2xl cursor-pointer" />
-                                <Text className="font-semibold">{proposal.upvotes}</Text>
+                          {proposals.length > 0 ? (
+                            proposals.map((proposal, idx) => (
+                              <HStack
+                                key={idx}
+                                className={styles.updateContainer}
+                              >
+                                <VStack className={styles.updateDate}>
+                                  <Text className={styles.updateDateText}>
+                                    {getFormattedDate(Number(proposal.date))}
+                                  </Text>
+                                </VStack>
+                                <VStack className={styles.updateTextContainer}>
+                                  <Text className={styles.updateTitle}>
+                                    {proposal.title}
+                                  </Text>
+                                  <Text className={styles.updateSubtitle}>
+                                    {proposal.description}
+                                  </Text>
+                                  <HStack>
+                                    <HStack className="">
+                                      <BiUpvote
+                                        onClick={() =>
+                                          upVote(
+                                            fundraiser.address,
+                                            proposal.id
+                                          )
+                                        }
+                                        className="text-2xl cursor-pointer"
+                                      />
+                                      <Text className="font-semibold">
+                                        {proposal.upvotes}
+                                      </Text>
+                                    </HStack>
+                                    <HStack>
+                                      <BiDownvote
+                                        onClick={() =>
+                                          downVote(
+                                            fundraiser.address,
+                                            proposal.id
+                                          )
+                                        }
+                                        className="text-2xl cursor-pointer"
+                                      />
+                                      <Text className="font-semibold">
+                                        {proposal.downvotes}
+                                      </Text>
+                                    </HStack>
+                                  </HStack>
+                                </VStack>
                               </HStack>
-                              <HStack>
-                                <BiDownvote onClick={() => downVote(fundraiser.address, proposal.id)} className="text-2xl cursor-pointer" />
-                                <Text className="font-semibold">{proposal.downvotes}</Text>
-                              </HStack>
-                            </HStack>
-                          </VStack>
-                        </HStack>
-                      )) : (
+                            ))
+                          ) : (
+                            <h1 className="text-center text-xl mt-4 font-bold">
+                              No Proposal record found
+                            </h1>
+                          )}
+                        </VStack>
+                      ) : (
                         <h1 className="text-center text-xl mt-4 font-bold">
-                         No Proposal record found
-                      </h1>
-                      )
-                      }
-                      </VStack>
-                    ) : (
-                      <h1 className="text-center text-xl mt-4 font-bold">
-                        No donation record found
-                      </h1>
-                    )}
+                          No donation record found
+                        </h1>
+                      )}
                     </ScrollArea>
                   </TabPanel>
                 </TabPanels>

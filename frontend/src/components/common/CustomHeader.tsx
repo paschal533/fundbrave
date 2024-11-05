@@ -18,7 +18,7 @@ function CustomHeader({
         <p
           className={cn(
             gilroyBold.className,
-            "text-3xl md:text-[52px] text-primary",
+            "text-3xl md:text-[52px] text-primary"
           )}
         >
           {title}

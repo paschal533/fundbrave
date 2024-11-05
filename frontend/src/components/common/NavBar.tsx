@@ -57,7 +57,13 @@ function NavBar(props?: any) {
     <div className="md:sticky md:top-0 md:shadow-none z-20 mt-[5rem] md:mt-0">
       {/* DESKTOP */}
       <div
-        className={`hidden lg:block fixed w-full ${props.name == "browse" ? "border-2 border-[#E3E1E3] bg-white" : ""} animate-in fade-in zoom-in ${isHome && navBg ? "bg-white top-0 scroll-smooth ease-in-out transition-all duration-300" : "bg-transparent"} p-4`}
+        className={`hidden lg:block fixed w-full ${
+          props.name == "browse" ? "border-2 border-[#E3E1E3] bg-white" : ""
+        } animate-in fade-in zoom-in ${
+          isHome && navBg
+            ? "bg-white top-0 scroll-smooth ease-in-out transition-all duration-300"
+            : "bg-transparent"
+        } p-4`}
       >
         <div className="flex justify-between mx-4 items-center">
           <Link href="/">
@@ -67,11 +73,11 @@ function NavBar(props?: any) {
             {links.map((item, index) => (
               <div key={index} className="flex gap-2">
                 <Link href={item.route}>
-                <p
-                  className={`hover:text-primary cursor-pointer flex items-center gap-2  font-[400] text-gray`}
-                >
-                  {item.name}
-                </p>
+                  <p
+                    className={`hover:text-primary cursor-pointer flex items-center gap-2  font-[400] text-gray`}
+                  >
+                    {item.name}
+                  </p>
                 </Link>
                 {item.badgeCount ? (
                   <div className="h-8 w-8 rounded-full bg-primary flex justify-center items-center  font-semibold text-white">

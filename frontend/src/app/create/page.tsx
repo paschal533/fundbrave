@@ -47,7 +47,7 @@ const client = ipfsHttpClient({
   protocol: "https",
   headers: {
     authorization: `Basic ${Buffer.from(projectIdAndSecret).toString(
-      "base64",
+      "base64"
     )}`,
   },
 });
@@ -100,7 +100,7 @@ function Create() {
         description,
         country,
         address,
-        amount,
+        amount
       );
       setTxnSuccessful(true);
     } catch (error) {
@@ -325,7 +325,7 @@ function StepOne({
           Next
         </Button>
       ) : (
-        <Login width="lg:!w-[550px] !w-[350px] !py-4 !rounded-2xl"/>
+        <Login width="lg:!w-[550px] !w-[350px] !py-4 !rounded-2xl" />
       )}
     </VStack>
   );
@@ -424,7 +424,11 @@ function StepTwo({
             <ul className="list-items">
               {categories.map((category, idx) => (
                 <li
-                  className={`item ${Object.keys(selectedCategories).includes(category) ? "checked" : ""}`}
+                  className={`item ${
+                    Object.keys(selectedCategories).includes(category)
+                      ? "checked"
+                      : ""
+                  }`}
                   key={idx}
                   onClick={() => handleSelectCategories(category)}
                 >
@@ -537,7 +541,7 @@ function StepFour({ uploadToInfura, setCurrentStep }: StepFourProps) {
       const res = await uploadToInfura(acceptedFile[0]);
       setFiles((prev) => [...prev, res]);
     },
-    [uploadToInfura],
+    [uploadToInfura]
   );
 
   const {
@@ -560,7 +564,7 @@ function StepFour({ uploadToInfura, setCurrentStep }: StepFourProps) {
          ${isDragActive ? " border-file-active " : ""} 
          ${isDragAccept ? " border-file-accept " : ""} 
          ${isDragReject ? " border-file-reject " : ""}`,
-    [isDragActive, isDragReject, isDragAccept],
+    [isDragActive, isDragReject, isDragAccept]
   );
 
   const scrollToTop = () => {

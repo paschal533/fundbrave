@@ -16,8 +16,12 @@ import {
 import { Button } from "@chakra-ui/react";
 
 const Donations = () => {
-  const { totalDonations, isLoadingUserDonations, myDonations, currentAccount } =
-    useContext(ProfileContext);
+  const {
+    totalDonations,
+    isLoadingUserDonations,
+    myDonations,
+    currentAccount,
+  } = useContext(ProfileContext);
 
   function getFormattedDate(timestamp: number) {
     const date = new Date(timestamp * 1000);
@@ -49,7 +53,7 @@ const Donations = () => {
         {!isLoadingUserDonations ? (
           myDonations?.length > 0 ? (
             <Tbody className="w-full items-center space-y-4 text-center justify-center">
-              {myDonations?.map((asset: any, index : any) => {
+              {myDonations?.map((asset: any, index: any) => {
                 return (
                   <Tr key={index} className="mt-8">
                     <Td className="text-md font-semibold">{asset.name}</Td>

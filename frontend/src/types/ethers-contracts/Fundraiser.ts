@@ -624,9 +624,7 @@ export interface Fundraiser extends BaseContract {
       overrides?: CallOverrides
     ): Promise<[Fundraiser.MediaArchiveStructOutput[]]>;
 
-    allDonations(
-      overrides?: CallOverrides
-    ): Promise<
+    allDonations(overrides?: CallOverrides): Promise<
       [string[], BigNumber[], BigNumber[]] & {
         donors: string[];
         values: BigNumber[];
@@ -773,9 +771,7 @@ export interface Fundraiser extends BaseContract {
     overrides?: CallOverrides
   ): Promise<Fundraiser.MediaArchiveStructOutput[]>;
 
-  allDonations(
-    overrides?: CallOverrides
-  ): Promise<
+  allDonations(overrides?: CallOverrides): Promise<
     [string[], BigNumber[], BigNumber[]] & {
       donors: string[];
       values: BigNumber[];
@@ -918,9 +914,7 @@ export interface Fundraiser extends BaseContract {
       overrides?: CallOverrides
     ): Promise<Fundraiser.MediaArchiveStructOutput[]>;
 
-    allDonations(
-      overrides?: CallOverrides
-    ): Promise<
+    allDonations(overrides?: CallOverrides): Promise<
       [string[], BigNumber[], BigNumber[]] & {
         donors: string[];
         values: BigNumber[];

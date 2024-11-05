@@ -10,7 +10,7 @@ function SecurityScaleSection() {
         <p
           className={cn(
             gilroyBold.className,
-            "text-[40px] leading-tight md:leading-normal text-primary",
+            "text-[40px] leading-tight md:leading-normal text-primary"
           )}
         >
           Scale with <span className="text-gray-500">security</span>

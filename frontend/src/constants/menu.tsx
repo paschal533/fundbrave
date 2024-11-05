@@ -31,7 +31,7 @@ export const SIDE_BAR_MENU: SIDE_BAR_MENU_PROPS[] = [
     label: "Active campaigns",
     icon: <Boxes className="h-7 w-7 mr-2 text-pink-700" />,
     path: "dashboard/campaigns",
-  }
+  },
 ];
 
 type TABS_MENU_PROPS = {

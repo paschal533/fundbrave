@@ -38,7 +38,7 @@ function Explore() {
 
   const onHandleSearch = (value: any) => {
     const filteredNfts = nfts.filter(({ name }: any) =>
-      name?.toLowerCase().includes(value.toLowerCase()),
+      name?.toLowerCase().includes(value.toLowerCase())
     );
 
     if (filteredNfts.length === 0) {
@@ -135,10 +135,10 @@ function Explore() {
                                   style={{
                                     backgroundColor: "#1D1F20",
                                     width: `${(Number(
-                                      perc(fundraiser.dollarDonationAmount),
+                                      perc(fundraiser.dollarDonationAmount)
                                     ) > 0
                                       ? (Number(
-                                          perc(fundraiser.dollarDonationAmount),
+                                          perc(fundraiser.dollarDonationAmount)
                                         ) /
                                           fundraiser.goalFormat) *
                                         100
@@ -161,7 +161,7 @@ function Explore() {
                                 color="#5A5A5A"
                               >
                                 {`${fundraiser.dollarDonationAmount.toFixed(
-                                  3,
+                                  3
                                 )} USD raised of ${fundraiser.goalFormat} USD`}
                               </Text>
                             </HStack>
@@ -229,10 +229,10 @@ function Explore() {
                                 style={{
                                   backgroundColor: "#1D1F20",
                                   width: `${(Number(
-                                    perc(fundraiser.dollarDonationAmount),
+                                    perc(fundraiser.dollarDonationAmount)
                                   ) > 0
                                     ? (Number(
-                                        perc(fundraiser.dollarDonationAmount),
+                                        perc(fundraiser.dollarDonationAmount)
                                       ) /
                                         fundraiser.goalFormat) *
                                       100
@@ -255,7 +255,7 @@ function Explore() {
                               color="#5A5A5A"
                             >
                               {`${fundraiser.dollarDonationAmount.toFixed(
-                                3,
+                                3
                               )} USD raised of ${fundraiser.goalFormat} USD`}
                             </Text>
                           </HStack>

@@ -16,7 +16,7 @@ function CustomStyledHeader({
       <p
         className={cn(
           gilroyBold.className,
-          "text-3xl md:text-[52px] text-[#9098A0]",
+          "text-3xl md:text-[52px] text-[#9098A0]"
         )}
       >
         {titleColored} <span className="text-white">{titleUnColored}</span>

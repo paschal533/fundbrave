@@ -5,7 +5,15 @@ import { WagmiProvider } from "wagmi";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { config } from "@/lib/config";
 import WalletContext from "@/components/login/WalletContext";
-import { http, createPublicClient, WalletClient, createWalletClient, custom, PublicClient, Account } from "viem";
+import {
+  http,
+  createPublicClient,
+  WalletClient,
+  createWalletClient,
+  custom,
+  PublicClient,
+  Account,
+} from "viem";
 import { mainnet, sepolia, filecoinCalibration } from "viem/chains";
 
 const queryClient = new QueryClient();
@@ -17,10 +25,10 @@ type Props = {
 export default function Providers({ children }: Props) {
   const [connected, setConnected] = useState<boolean | undefined>(undefined);
   const [walletClient, setWalletClient] = useState<WalletClient | undefined>(
-    undefined,
+    undefined
   );
   const [publicClient, setPublicClient] = useState<PublicClient | undefined>(
-    undefined,
+    undefined
   );
   const [userAddress, setUserAddress] = useState("");
   const [currentNetwork, setCurrentNetwork] = useState("calibration");
@@ -49,8 +57,8 @@ export default function Providers({ children }: Props) {
     });
     const newPublicClient = createPublicClient({
       chain: filecoinCalibration,
-      transport: http()
-    })
+      transport: http(),
+    });
     setPublicClient(newPublicClient);
     setWalletClient(newWalletClient);
   }, [currentNetwork]);
@@ -60,12 +68,15 @@ export default function Providers({ children }: Props) {
 
     const silk = initSilk();
     // @ts-ignore
-    window.silk = silk
+    window.silk = silk;
 
     const checkConnection = async () => {
       try {
         // @ts-ignore
-        const accounts = await window.silk.request({ method: "eth_accounts", params: [{ chainId: '0x4cb2f' }] });
+        const accounts = await window.silk.request({
+          method: "eth_accounts",
+          params: [{ chainId: "0x4cb2f" }],
+        });
         //@ts-ignore
         if (accounts?.length > 0) {
           //@ts-ignore
@@ -96,7 +107,7 @@ export default function Providers({ children }: Props) {
         setCurrentNetwork,
         initializeWalletClient,
         publicClient,
-        setPublicClient
+        setPublicClient,
       }}
     >
       <WagmiProvider config={config}>

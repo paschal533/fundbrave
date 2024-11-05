@@ -85,7 +85,11 @@ function Share({ isOpen, onClose, url, name, image }: any) {
           </ModalBody>
 
           <ModalFooter>
-            <Button colorScheme="black" className="!bg-[#1D1F20] !text-white" onClick={onClose}>
+            <Button
+              colorScheme="black"
+              className="!bg-[#1D1F20] !text-white"
+              onClick={onClose}
+            >
               Close
             </Button>
           </ModalFooter>

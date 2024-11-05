@@ -16,7 +16,7 @@ const YoutubeIframe: React.FC<IProps> = (props) => {
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const defaultHeight = 495;
   const [videoHeight, setVideoHeight] = useState<number>(
-    iframeRef.current ? iframeRef.current.offsetWidth * 0.5625 : defaultHeight,
+    iframeRef.current ? iframeRef.current.offsetWidth * 0.5625 : defaultHeight
   );
 
   const handleChangeVideoWidth = useCallback(() => {
@@ -24,10 +24,10 @@ const YoutubeIframe: React.FC<IProps> = (props) => {
       window.innerWidth > 990
         ? 1.0
         : window.innerWidth > 522
-          ? 1.2
-          : window.innerWidth > 400
-            ? 1.45
-            : 1.85;
+        ? 1.2
+        : window.innerWidth > 400
+        ? 1.45
+        : 1.85;
     const height = iframeRef.current
       ? iframeRef.current.offsetWidth * 0.5625
       : defaultHeight;
@@ -40,10 +40,10 @@ const YoutubeIframe: React.FC<IProps> = (props) => {
       window.innerWidth > 990
         ? 1.0
         : window.innerWidth > 522
-          ? 1.2
-          : window.innerWidth > 400
-            ? 1.45
-            : 1.85;
+        ? 1.2
+        : window.innerWidth > 400
+        ? 1.45
+        : 1.85;
     const height = iframeRef.current
       ? iframeRef.current.offsetWidth * 0.5625
       : defaultHeight;

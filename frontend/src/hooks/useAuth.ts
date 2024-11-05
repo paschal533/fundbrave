@@ -5,16 +5,16 @@ import { useAccount, useSwitchChain } from "wagmi";
 import { useWallet } from "../components/login/WalletContext";
 import { filecoinCalibration } from "viem/chains";
 import { createWalletClient } from "viem";
-import { useToast } from "@/hooks/use-toast"
+import { useToast } from "@/hooks/use-toast";
 
 const useAuth = () => {
   const onboarding = useRef<MetaMaskOnboarding>();
   const { address, isConnecting, isDisconnected, chain } = useAccount();
   const [accounts, setAccounts] = useState<any>();
   const [isLoading, setIsLoading] = useState(false);
-  const [closeModal, setCloseModal] = useState<boolean>()
+  const [closeModal, setCloseModal] = useState<boolean>();
   const { chains, error, switchChain } = useSwitchChain();
-  const { toast } = useToast()
+  const { toast } = useToast();
 
   const {
     connected,
@@ -26,15 +26,14 @@ const useAuth = () => {
   } = useWallet();
 
   useEffect(() => {
-    if(address){
-      setAccounts(address)
-    }else if(userAddress){
-     setAccounts(userAddress)
-    }else{
-      setAccounts("")
+    if (address) {
+      setAccounts(address);
+    } else if (userAddress) {
+      setAccounts(userAddress);
+    } else {
+      setAccounts("");
     }
-  }, [address, userAddress])
-
+  }, [address, userAddress]);
 
   useEffect(() => {
     setAccounts(address);
@@ -48,13 +47,13 @@ const useAuth = () => {
         variant: "destructive",
         title: "Uh oh! Something went wrong.",
         description: "Your wallet is not connect to the Dapp.",
-      })
+      });
       handleNewNotification();
     } else {
       toast({
         title: "Success!: Wallet connected",
         description: "Your wallet is connect to the Dapp.",
-      })
+      });
     }
   }, [address, chain?.id, chain, isConnecting, toast, switchChain, chains]);
 
@@ -92,40 +91,40 @@ const useAuth = () => {
     toast({
       title: "Success!: Wallet disconnected",
       description: "Your wallet is disconnected from the Dapp.",
-    })
+    });
   }
 
   const connectWallet = async () => {
     if (MetaMaskOnboarding.isMetaMaskInstalled() && window.ethereum) {
-       try {
+      try {
         setIsLoading(true);
-       
-      const newAccounts = await window?.ethereum.request({
-        method: "eth_requestAccounts",
-      });
-      //@ts-ignore
-      setAccounts(newAccounts[0]);
-      toast({
-        title: "Success!: Wallet connected",
-        description: "Your wallet is connect to the Dapp.",
-      })
-      setIsLoading(false);
-       }catch(error){
-        console.log(error)
+
+        const newAccounts = await window?.ethereum.request({
+          method: "eth_requestAccounts",
+        });
+        //@ts-ignore
+        setAccounts(newAccounts[0]);
+        toast({
+          title: "Success!: Wallet connected",
+          description: "Your wallet is connect to the Dapp.",
+        });
+        setIsLoading(false);
+      } catch (error) {
+        console.log(error);
         toast({
           variant: "destructive",
           title: "Uh oh! Something went wrong.",
           description: "Your wallet is not connect to the Dapp.",
-        })
+        });
         handleNewNotification();
-       }
+      }
     } else {
       onboarding.current?.startOnboarding();
       toast({
         variant: "destructive",
         title: "Uh oh! Something went wrong.",
         description: "Your don't have metamask extension.",
-      })
+      });
       handleNewNotification();
     }
   };
@@ -135,7 +134,7 @@ const useAuth = () => {
     setCloseModal(true);
     try {
       // @ts-ignore
-      await window.silk.loginSelector()
+      await window.silk.loginSelector();
       //@ts-ignore
       await window.silk.requestSBT("phone");
       const newWalletClient = createWalletClient({
@@ -150,14 +149,14 @@ const useAuth = () => {
       toast({
         title: "Success!: Wallet connected",
         description: "Your wallet is connect to the Dapp.",
-      })
+      });
     } catch (err: any) {
       console.error(err);
       toast({
         variant: "destructive",
         title: "Uh oh! Something went wrong.",
         description: "Your wallet is not connect to the Dapp.",
-      })
+      });
     }
   }
 
@@ -178,7 +177,7 @@ const useAuth = () => {
     logout,
     login,
     closeModal,
-    setCloseModal
+    setCloseModal,
   };
 };
 
