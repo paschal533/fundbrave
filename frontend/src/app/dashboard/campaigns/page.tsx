@@ -1,14 +1,16 @@
 "use client";
-import Campaigns from "@/components/campaigns";
 import NotLogin from "@/components/common/NotLogin";
 import InfoBar from "@/components/infobar";
 import { useWallet } from "@/components/login/WalletContext";
 import { AuthContext } from "@/context/AuthContext";
 import React, { useContext } from "react";
+import dynamic from 'next/dynamic'
 
-type Props = {};
+const Campaign = () => import('@/components/campaigns')
 
-const Page = (props: Props) => {
+const CampaignConnect = dynamic(Campaign, {ssr: false})
+
+const Page = () => {
   const { currentAccount } = useContext(AuthContext);
 
   if (!currentAccount) {
@@ -19,7 +21,7 @@ const Page = (props: Props) => {
     <>
       <InfoBar />
       <div className="w-full align-middle place-content-center justify-center items-center flex">
-        <Campaigns />
+         <CampaignConnect />
       </div>
     </>
   );
