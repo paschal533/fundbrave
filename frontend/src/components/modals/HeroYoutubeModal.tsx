@@ -15,9 +15,9 @@ export function HeroYoutubeModal() {
       <DialogContent className="p-2 min-w-full md:min-w-[calc(100vw-800px)]">
         <AnimatedBorderTrail trailSize="lg">
           <YoutubeIframe
-            videoId="AVAR04vHdnY"
+            videoId="l4Utv8RlzxA"
             autoPlay
-            title="Welcome to Attio"
+            title="Fundbrave"
           />
         </AnimatedBorderTrail>
       </DialogContent>

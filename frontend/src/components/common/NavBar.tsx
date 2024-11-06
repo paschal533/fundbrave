@@ -14,7 +14,7 @@ function NavBar(props?: any) {
       badgeCount: 0,
     },
     {
-      route: "/voting",
+      route: "/explore",
       name: "Voting",
       badgeCount: 0,
     },

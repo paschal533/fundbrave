@@ -562,7 +562,7 @@ function Cause() {
                 </Text>
               </HStack>
               {!currentAccount ? (
-                <SignIn width="!w-[350px]" />
+                <SignIn width="lg:!w-[350px] !w-[250px]" />
               ) : (
                 <StyledButton onClick={() => setPaymentModal(true)}>
                   Donate now
