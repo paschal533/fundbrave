@@ -58,7 +58,7 @@ The platform enables fundraisers to share their stories, connect with donors, an
 - Ethers JS, Wagmi, Viem (Blockchain Interaction)
 - Truffle (Smart Contract Development Framework)
 - IPFS (File Storage)
-- Filecoin (Blockchain Network)
+- Numbers Protocol (Blockchain Network)
 - Zeronym and Silk SDK (Authentication)
 - Numbers Protocol (Media assets Verification)
 
