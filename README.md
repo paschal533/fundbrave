@@ -4,9 +4,9 @@
 
 ### **Introduction**
 
-FundBrave is a decentralized fundraising and donor engagement platform built on blockchain technology, designed to empower fundraisers, donors, and communities globally. Combining the power of Web3, social media dynamics, and financial incentives, FundBrave addresses critical challenges in traditional fundraising, such as transparency, inefficiency, and centralized control.
+FundBrave is a decentralized, transparent fundraising platform built to empower fundraisers, donors, and NGOs worldwide. It provides a robust and innovative ecosystem where fundraisers can directly connect with donors, share real-time updates, and access funding without intermediaries or censorship.
 
-The platform enables fundraisers to share their stories, connect with donors, and raise funds without intermediaries, ensuring that resources directly reach the intended causes. FundBrave also empowers donors by offering unique staking incentives, governance rights, and rewards, creating a mutually beneficial ecosystem.
+Leveraging blockchain technology, FundBrave ensures transparency, security, and trust. By integrating features like staking, governance voting, NFT-based incentives, and verified media uploads through Numbers Protocol, FundBrave aims to revolutionize fundraising by placing power back in the hands of the people.
 
 ---
 
@@ -24,21 +24,23 @@ The platform enables fundraisers to share their stories, connect with donors, an
     - **Profit Sharing**:
         - 80% of profits from staking activities go to the fundraiser.
         - 20% is returned to the donor, incentivizing long-term participation.
-4. **Governance and Voting**:
+4. **FundBrave AI**
+    - A fine-tuned AI assistant designed to assist users with proposal creation, donor recommendations, fact-checking, and performance analytics. This ensures campaigns are impactful and donors are well-informed.
+5. **Governance and Voting**:
     - Donors gain voting rights to influence proposals submitted by fundraisers they support.
     - Decentralized governance ensures accountability and enhances donor involvement.
-5. **Rewards and Incentives**:
+6. **Rewards and Incentives**:
     - Donors are rewarded with badges, NFTs, gift cards, and FundBrave Tokens (FBT).
     - Recognition and incentives encourage more donations and long-term engagement.
-6. **Content Verification with Numbers Protocol**:
+7. **Content Verification with Numbers Protocol**:
     - Numbers Protocol ensures media authenticity by verifying images and videos uploaded to the platform.
     - This reduces the risk of fake campaigns and builds trust among donors and fundraisers.
-7. **Direct Communication**:
+8. **Direct Communication**:
     - A built-in chat feature allows donors and fundraisers to communicate directly, fostering stronger connections and trust.
-8. **Decentralized Token Economy**:
+9. **Decentralized Token Economy**:
     - FundBrave Tokens (FBT) power the ecosystem, enabling rewards, governance, and transactions.
     - FBT holders can participate in platform decisions and benefit from staking incentives.
-9. **No Platform Charges**:
+10. **No Platform Charges**:
     - FundBrave operates as a nonprofit, eliminating fees for fundraisers and ensuring that every donation fully benefits the intended cause.
 
 # Overview
